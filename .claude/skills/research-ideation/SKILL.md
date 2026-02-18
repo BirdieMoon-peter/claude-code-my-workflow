@@ -1,103 +1,103 @@
 ---
 name: research-ideation
-description: Generate structured research questions, testable hypotheses, and empirical strategies from a topic or dataset
+description: 从主题或数据集生成结构化的研究问题、可检验的假设和实证策略
 disable-model-invocation: true
-argument-hint: "[topic, phenomenon, or dataset description]"
+argument-hint: "[主题、现象或数据集描述]"
 allowed-tools: ["Read", "Grep", "Glob", "Write"]
 ---
 
-# Research Ideation
+# 研究构想
 
-Generate structured research questions, testable hypotheses, and empirical strategies from a topic, phenomenon, or dataset.
+从主题、现象或数据集生成结构化的研究问题、可检验的假设和实证策略。
 
-**Input:** `$ARGUMENTS` — a topic (e.g., "minimum wage effects on employment"), a phenomenon (e.g., "why do firms cluster geographically?"), or a dataset description (e.g., "panel of US counties with pollution and health outcomes, 2000-2020").
-
----
-
-## Steps
-
-1. **Understand the input.** Read `$ARGUMENTS` and any referenced files. Check `master_supporting_docs/` for related papers. Check `.claude/rules/` for domain conventions.
-
-2. **Generate 3-5 research questions** ordered from descriptive to causal:
-   - **Descriptive:** What are the patterns? (e.g., "How has X evolved over time?")
-   - **Correlational:** What factors are associated? (e.g., "Is X correlated with Y after controlling for Z?")
-   - **Causal:** What is the effect? (e.g., "What is the causal effect of X on Y?")
-   - **Mechanism:** Why does the effect exist? (e.g., "Through what channel does X affect Y?")
-   - **Policy:** What are the implications? (e.g., "Would policy X improve outcome Y?")
-
-3. **For each research question, develop:**
-   - **Hypothesis:** A testable prediction with expected sign/magnitude
-   - **Identification strategy:** How to establish causality (DiD, IV, RDD, synthetic control, etc.)
-   - **Data requirements:** What data would be needed? Is it available?
-   - **Key assumptions:** What must hold for the strategy to be valid?
-   - **Potential pitfalls:** Common threats to identification
-   - **Related literature:** 2-3 papers using similar approaches
-
-4. **Rank the questions** by feasibility and contribution.
-
-5. **Save the output** to `quality_reports/research_ideation_[sanitized_topic].md`
+**输入：** `$ARGUMENTS` — 一个主题（例如："最低工资对就业的影响"）、一个现象（例如："为什么企业会地理集聚？"）或数据集描述（例如："2000-2020年美国县级污染和健康结果面板数据"）。
 
 ---
 
-## Output Format
+## 步骤
+
+1. **理解输入。** 阅读 `$ARGUMENTS` 和任何引用的文件。检查 `master_supporting_docs/` 查找相关论文。检查 `.claude/rules/` 了解领域惯例。
+
+2. **生成3-5个研究问题**，从描述性到因果性排序：
+   - **描述性：** 有什么模式？（例如："X如何随时间演变？"）
+   - **相关性：** 哪些因素相关联？（例如："在控制Z后，X与Y是否相关？"）
+   - **因果性：** 效应是什么？（例如："X对Y的因果效应是什么？"）
+   - **机制：** 为什么存在这种效应？（例如："X通过什么渠道影响Y？"）
+   - **政策：** 有什么含义？（例如："政策X会改善结果Y吗？"）
+
+3. **对每个研究问题，发展：**
+   - **假设：** 具有预期符号/幅度的可检验预测
+   - **识别策略：** 如何建立因果关系（DiD、IV、RDD、synthetic control等）
+   - **数据需求：** 需要什么数据？是否可获得？
+   - **关键假设：** 策略有效需要满足什么条件？
+   - **潜在陷阱：** 识别的常见威胁
+   - **相关文献：** 使用类似方法的2-3篇论文
+
+4. **对问题进行排序**，按可行性和贡献度。
+
+5. **保存输出** 到 `quality_reports/research_ideation_[sanitized_topic].md`
+
+---
+
+## 输出格式
 
 ```markdown
-# Research Ideation: [Topic]
+# 研究构想: [Topic]
 
-**Date:** [YYYY-MM-DD]
-**Input:** [Original input]
+**日期：** [YYYY-MM-DD]
+**输入：** [Original input]
 
-## Overview
+## 概述
 
-[1-2 paragraphs situating the topic and why it matters]
+[1-2段文字说明主题定位及其重要性]
 
-## Research Questions
+## 研究问题
 
-### RQ1: [Question] (Feasibility: High/Medium/Low)
+### RQ1: [Question] (可行性: High/Medium/Low)
 
-**Type:** Descriptive / Correlational / Causal / Mechanism / Policy
+**类型：** Descriptive / Correlational / Causal / Mechanism / Policy
 
-**Hypothesis:** [Testable prediction]
+**假设：** [Testable prediction]
 
-**Identification Strategy:**
-- **Method:** [e.g., Difference-in-Differences]
-- **Treatment:** [What varies and when]
-- **Control group:** [Comparison units]
-- **Key assumption:** [e.g., Parallel trends]
+**识别策略：**
+- **方法：** [e.g., Difference-in-Differences]
+- **处理：** [What varies and when]
+- **控制组：** [Comparison units]
+- **关键假设：** [e.g., Parallel trends]
 
-**Data Requirements:**
+**数据需求：**
 - [Dataset 1 — what it provides]
 - [Dataset 2 — what it provides]
 
-**Potential Pitfalls:**
+**潜在陷阱：**
 1. [Threat 1 and possible mitigation]
 2. [Threat 2 and possible mitigation]
 
-**Related Work:** [Author (Year)], [Author (Year)]
+**相关研究：** [Author (Year)], [Author (Year)]
 
 ---
 
-[Repeat for RQ2-RQ5]
+[对RQ2-RQ5重复]
 
-## Ranking
+## 排序
 
-| RQ | Feasibility | Contribution | Priority |
+| RQ | 可行性 | 贡献度 | 优先级 |
 |----|-------------|-------------|----------|
 | 1  | High        | Medium      | ...      |
 | 2  | Medium      | High        | ...      |
 
-## Suggested Next Steps
+## 建议的下一步
 
-1. [Most promising direction and immediate action]
-2. [Data to obtain]
-3. [Literature to review deeper]
+1. [最有希望的方向和即时行动]
+2. [要获取的数据]
+3. [需要深入审查的文献]
 ```
 
 ---
 
-## Principles
+## 原则
 
-- **Be creative but grounded.** Push beyond obvious questions, but every suggestion must be empirically feasible.
-- **Think like a referee.** For each causal question, immediately identify the identification challenge.
-- **Consider data availability.** A brilliant question with no available data is not actionable.
-- **Suggest specific datasets** where possible (FRED, Census, PSID, administrative data, etc.).
+- **具有创造性但要有依据。** 超越显而易见的问题，但每个建议都必须在实证上可行。
+- **像审稿人一样思考。** 对于每个因果问题，立即识别识别挑战。
+- **考虑数据可获得性。** 一个没有可用数据的绝妙问题是不可操作的。
+- **建议具体的数据集**，在可能的情况下（FRED、Census、PSID、行政数据等）。

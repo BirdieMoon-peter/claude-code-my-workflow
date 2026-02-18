@@ -1,43 +1,43 @@
 ---
 name: proofread
-description: Run the proofreading protocol on lecture files. Checks grammar, typos, overflow, consistency, and academic writing quality. Produces a report without editing files.
+description: 对讲座文件执行校对协议。检查语法、拼写、溢出、一致性和学术写作质量。生成报告但不编辑文件。
 disable-model-invocation: true
-argument-hint: "[filename or 'all']"
+argument-hint: "[文件名或 'all']"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
 ---
 
-# Proofread Lecture Files
+# 校对讲座文件
 
-Run the mandatory proofreading protocol on lecture files. This produces a report of all issues found WITHOUT editing any source files.
+对讲座文件执行强制性校对协议。生成所有发现问题的报告，但不编辑任何源文件。
 
-## Steps
+## 步骤
 
-1. **Identify files to review:**
-   - If `$ARGUMENTS` is a specific filename: review that file only
-   - If `$ARGUMENTS` is "all": review all lecture files in `Slides/` and `Quarto/`
+1. **识别需要审查的文件:**
+   - 如果 `$ARGUMENTS` 是特定文件名：仅审查该文件
+   - 如果 `$ARGUMENTS` 是 "all"：审查 `Slides/` 和 `Quarto/` 中的所有讲座文件
 
-2. **For each file, launch the proofreader agent** that checks for:
+2. **对每个文件启动校对员智能体**，检查以下内容:
 
-   **GRAMMAR:** Subject-verb agreement, articles (a/an/the), prepositions, tense consistency
-   **TYPOS:** Misspellings, search-and-replace artifacts, duplicated words
-   **OVERFLOW:** Overfull hbox (LaTeX), content exceeding slide boundaries (Quarto)
-   **CONSISTENCY:** Citation format, notation, terminology
-   **ACADEMIC QUALITY:** Informal language, missing words, awkward constructions
+   **语法:** 主谓一致、冠词（a/an/the）、介词、时态一致性
+   **拼写:** 拼写错误、查找替换遗留问题、重复词语
+   **溢出:** Overfull hbox（LaTeX）、超出幻灯片边界的内容（Quarto）
+   **一致性:** 引用格式、符号表示、术语
+   **学术质量:** 非正式语言、缺失词语、笨拙的表达
 
-3. **Produce a detailed report** for each file listing every finding with:
-   - Location (line number or slide title)
-   - Current text (what's wrong)
-   - Proposed fix (what it should be)
-   - Category and severity
+3. **生成详细报告**，列出每个发现的问题:
+   - 位置（行号或幻灯片标题）
+   - 当前文本（有什么问题）
+   - 建议修复（应该是什么）
+   - 类别和严重程度
 
-4. **Save each report** to `quality_reports/`:
-   - For `.tex` files: `quality_reports/FILENAME_report.md`
-   - For `.qmd` files: `quality_reports/FILENAME_qmd_report.md`
+4. **保存每个报告** 到 `quality_reports/`:
+   - 对于 `.tex` 文件：`quality_reports/FILENAME_report.md`
+   - 对于 `.qmd` 文件：`quality_reports/FILENAME_qmd_report.md`
 
-5. **IMPORTANT: Do NOT edit any source files.**
-   Only produce the report. Fixes are applied separately after user review.
+5. **重要提示：不要编辑任何源文件。**
+   仅生成报告。修复在用户审查后单独应用。
 
-6. **Present summary** to the user:
-   - Total issues found per file
-   - Breakdown by category
-   - Most critical issues highlighted
+6. **向用户展示摘要:**
+   - 每个文件发现的问题总数
+   - 按类别分类
+   - 突出显示最关键的问题

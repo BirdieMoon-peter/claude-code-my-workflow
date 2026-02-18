@@ -1,45 +1,45 @@
 ---
 name: extract-tikz
-description: Extract TikZ diagrams from Beamer source, compile to PDF, convert to SVG with 0-based indexing. Use when updating TikZ diagrams for Quarto slides.
+description: 从Beamer源文件提取TikZ图表，编译为PDF，转换为SVG（使用0基索引）。更新Quarto幻灯片的TikZ图表时使用。
 disable-model-invocation: true
-argument-hint: "[LectureN, e.g., Lecture2]"
+argument-hint: "[LectureN, 例如 Lecture2]"
 allowed-tools: ["Read", "Bash", "Glob"]
 ---
 
-# Extract TikZ Diagrams to SVG
+# 提取 TikZ 图表为 SVG
 
-Extract TikZ diagrams from the Beamer source, compile to multi-page PDF, and convert each page to SVG for use in Quarto slides.
+从 Beamer 源文件提取 TikZ 图表，编译为多页 PDF，并将每一页转换为 SVG 以用于 Quarto 幻灯片。
 
-## Steps
+## 步骤
 
-### Step 0: Freshness Check (MANDATORY)
+### 步骤 0: 新鲜度检查（必需）
 
-**Before compiling, verify that `extract_tikz.tex` matches the current Beamer source.**
+**在编译之前，验证 `extract_tikz.tex` 与当前 Beamer 源文件匹配。**
 
-1. Find the Beamer source: `ls Slides/$ARGUMENTS*.tex`
-2. Extract all `\begin{tikzpicture}` blocks from Beamer
-3. Compare with `Figures/$ARGUMENTS/extract_tikz.tex`
-4. If ANY difference exists: update extract_tikz.tex from the Beamer source
-5. If extract_tikz.tex doesn't exist: create it from scratch
+1. 查找 Beamer 源文件：`ls Slides/$ARGUMENTS*.tex`
+2. 从 Beamer 提取所有 `\begin{tikzpicture}` 块
+3. 与 `Figures/$ARGUMENTS/extract_tikz.tex` 对比
+4. 如果存在任何差异：从 Beamer 源更新 extract_tikz.tex
+5. 如果 extract_tikz.tex 不存在：从头创建
 
-### Step 1: Navigate to the lecture's Figures directory
+### 步骤 1: 导航到讲座的 Figures 目录
 ```bash
 cd Figures/$ARGUMENTS
 ```
 
-### Step 2: Compile the extract_tikz.tex file
+### 步骤 2: 编译 extract_tikz.tex 文件
 ```bash
 TEXINPUTS=../../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode extract_tikz.tex
 ```
 
-### Step 3: Count the number of pages
+### 步骤 3: 统计页数
 ```bash
 pdfinfo extract_tikz.pdf | grep "Pages:"
 ```
 
-### Step 4: Convert each page to SVG using 0-BASED INDEXING
+### 步骤 4: 使用0基索引将每一页转换为 SVG
 
-**CRITICAL: PDF pages are 1-indexed, but output SVG files are 0-indexed!**
+**关键：PDF 页面是1基索引，但输出的 SVG 文件是0基索引！**
 
 ```bash
 PAGES=$(pdfinfo extract_tikz.pdf | grep "Pages:" | awk '{print $2}')
@@ -49,17 +49,17 @@ for i in $(seq 1 $PAGES); do
 done
 ```
 
-### Step 5: Sync to docs/ for deployment
+### 步骤 5: 同步到 docs/ 进行部署
 ```bash
 cd ../..
 ./scripts/sync_to_docs.sh $ARGUMENTS
 ```
 
-### Step 6: Verify SVG files
-- Read 2-3 SVG files to confirm they contain valid SVG markup
-- Confirm file sizes are reasonable (not 0 bytes)
+### 步骤 6: 验证 SVG 文件
+- 读取 2-3 个 SVG 文件以确认包含有效的 SVG 标记
+- 确认文件大小合理（不是 0 字节）
 
-### Step 7: Report results
+### 步骤 7: 报告结果
 
-## Source of Truth Reminder
-TikZ diagrams MUST be edited in the Beamer `.tex` file first, then copied verbatim to `extract_tikz.tex`. See `.claude/rules/single-source-of-truth.md`.
+## 单一真相源提醒
+TikZ 图表必须先在 Beamer `.tex` 文件中编辑，然后逐字复制到 `extract_tikz.tex`。参见 `.claude/rules/single-source-of-truth.md`。

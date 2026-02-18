@@ -1,84 +1,84 @@
 ---
 name: create-lecture
-description: Create a new Beamer lecture from papers, existing slides, R scripts, and other materials. Guides the content creation process with notation consistency, pedagogical patterns, and collaborative iteration.
+description: 从论文、现有幻灯片、R 脚本和其他材料创建新的 Beamer 讲义。通过符号一致性、教学法模式和协作迭代来指导内容创建过程。
 disable-model-invocation: true
-argument-hint: "[Topic name, e.g., 'Synthetic Control' or 'Regression Discontinuity']"
+argument-hint: "[主题名称，例如"合成对照"或"回归不连续性"]"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Edit", "Bash", "Task"]
 ---
 
-# Lecture Creation Workflow
+# 讲义创建工作流
 
-Create a beautiful, pedagogically excellent Beamer lecture deck.
+创建一份美观、教学法卓越的 Beamer 讲义幻灯片。
 
-**This is a collaborative, iterative process. The instructor drives the vision; Claude is a thinking partner.**
-
----
-
-## CONSTRAINTS (Non-Negotiable)
-
-1. **Read the knowledge base FIRST** — notation registry, narrative arc, applications database
-2. Every new symbol MUST be checked against the notation registry
-3. Motivation before formalism — no exceptions
-4. Worked example within 2 slides of every definition
-5. Max 2 colored boxes per slide
-6. No `\pause` or overlay commands (check project rules)
-7. Transition slides at major conceptual pivots
-8. Thread at least 1 running empirical application throughout
-9. All citations verified against the bibliography
-10. **Work in batches of 5-10 slides** — share for feedback, don't bulk-dump
+**这是一个协作的、迭代的过程。讲师推动愿景；Claude 是思维伙伴。**
 
 ---
 
-## WORKFLOW
+## 约束条件（不可商议）
 
-### Phase 0: Intake & Context
-- Read knowledge base and creation guide
-- Inventory provided materials (papers, slides, code)
-- Read previous lecture's structure and ending
-- State pedagogical goal, get user confirmation
-
-### Phase 1: Paper Analysis (When Papers Provided)
-- Split into chunks, extract key ideas
-- Map paper notation → course notation
-- Identify slide-worthy content
-- Present summary for approval
-
-### Phase 2: Structure Proposal
-- Propose outline (5-Act or 3-Part template)
-- List TikZ diagrams and R figures needed
-- List new notation to introduce
-- **GATE: User approves before Phase 3**
-
-### Phase 3: Draft Slides (Iterative)
-- Work in batches of 5-10 slides
-- Check notation, apply creation patterns
-- Quality checks during drafting
-
-### Phase 4: Figures & Code
-- R scripts following conventions
-- TikZ diagrams in Beamer source (single source of truth)
-- Save RDS for future Quarto integration
-
-### Phase 5: Polish & Compile
-- Full 3-pass compilation
-- Run Devil's Advocate
-- Run Substance Review (if domain reviewer configured)
-- Update knowledge base with new notation
+1. **首先阅读知识库** — 符号注册表、叙事弧、应用数据库
+2. 每个新符号必须针对符号注册表进行检查
+3. 动机优先于形式主义 — 没有例外
+4. 每个定义后 2 张幻灯片内有具体例子
+5. 每张幻灯片最多 2 个彩色框
+6. 没有 `\pause` 或覆盖命令（检查项目规则）
+7. 在主要概念转折处进行过渡幻灯片
+8. 在整个过程中至少线索 1 个经验应用
+9. 针对参考文献验证所有引文
+10. **分批工作 5-10 张幻灯片** — 分享反馈，不要大量倾倒
 
 ---
 
-## Post-Creation Checklist
+## 工作流
+
+### 阶段 0：摄入和背景
+- 读取知识库和创建指南
+- 清点提供的材料（论文、幻灯片、代码）
+- 阅读前面讲义的结构和结尾
+- 阐述教学法目标，获得用户确认
+
+### 阶段 1：论文分析（提供论文时）
+- 分块，提取关键思想
+- 将论文符号映射到课程符号
+- 识别值得幻灯片的内容
+- 提交摘要以获得批准
+
+### 阶段 2：结构提案
+- 提议大纲（5 法案或 3 部分模板）
+- 列出所需的 TikZ 图表和 R 图形
+- 列出要引入的新符号
+- **门控：用户在阶段 3 之前批准**
+
+### 阶段 3：草稿幻灯片（迭代）
+- 分批工作 5-10 张幻灯片
+- 检查符号，应用创建模式
+- 草稿期间的质量检查
+
+### 阶段 4：图形和代码
+- 遵循惯例的 R 脚本
+- Beamer 源中的 TikZ 图表（单一真实来源）
+- 保存 RDS 供未来 Quarto 集成
+
+### 阶段 5：润饰和编译
+- 完整的 3 遍编译
+- 运行恶魔代言人
+- 运行实质审查（如果配置了域审查者）
+- 用新符号更新知识库
+
+---
+
+## 后创建检查清单
 
 ```
-[ ] Lecture compiles without errors
-[ ] No overfull hbox > 10pt
-[ ] All citations resolve
-[ ] Every definition has motivation + worked example
-[ ] Max 2 colored boxes per slide
-[ ] 2-3 Socratic questions embedded
-[ ] Transition slides between sections
-[ ] At least 1 running application threaded throughout
-[ ] New notation added to knowledge base
-[ ] Session log updated
-[ ] Devil's Advocate run
+[ ] 讲义无错误编译
+[ ] 没有超满的 hbox > 10pt
+[ ] 所有引文解析
+[ ] 每个定义都有动机 + 具体例子
+[ ] 每张幻灯片最多 2 个彩色框
+[ ] 嵌入 2-3 个苏格拉底问题
+[ ] 部分之间的过渡幻灯片
+[ ] 至少 1 个贯穿全过程的应用
+[ ] 新符号添加到知识库
+[ ] 会话日志已更新
+[ ] 运行了恶魔代言人
 ```

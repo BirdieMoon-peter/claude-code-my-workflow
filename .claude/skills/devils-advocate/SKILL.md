@@ -1,82 +1,82 @@
 ---
 name: devils-advocate
-description: Challenge a slide deck design with 5-7 specific pedagogical questions. Checks ordering, prerequisites, gaps, alternatives, notation conflicts, cognitive load, and book readiness.
+description: 使用 5-7 个具体的教学法问题挑战幻灯片设计。检查顺序、前提条件、间隙、替代方案、符号冲突、认知负荷和书籍准备度。
 disable-model-invocation: true
-argument-hint: "[Lecture filename or topic description]"
+argument-hint: "[讲义文件名或主题描述]"
 allowed-tools: ["Read", "Grep", "Glob"]
 ---
 
-# Devil's Advocate Review
+# 恶魔代言人审查
 
-Critically examine a slide deck and challenge its design with 5-7 specific pedagogical questions.
+以 5-7 个具体的教学法问题批判性地审查幻灯片并挑战其设计。
 
-**Philosophy:** "We arrive at the best possible presentation through active dialogue."
-
----
-
-## Setup
-
-1. **Read the target file** (the lecture being challenged)
-2. **Read the knowledge base** in `.claude/rules/` for notation conventions and narrative arc
-3. If applicable, **read adjacent lectures** for narrative continuity
+**哲学：**"我们通过积极对话达到最好的呈现。"
 
 ---
 
-## Challenge Categories
+## 设置
 
-Generate 5-7 challenges from these categories:
-
-### 1. Ordering Challenges
-> "Could students understand this better if we showed X before Y?"
-
-### 2. Prerequisite Challenges
-> "Do students have the background for this notation at this point?"
-
-### 3. Gap Challenges
-> "Should we include an intuitive example before this formal proof?"
-
-### 4. Alternative Presentation Challenges
-> "Here are 2 other ways to visualize/present this concept."
-
-### 5. Notation Conflict Challenges
-> "This symbol conflicts with earlier lecture usage."
-
-### 6. Cognitive Load Challenges
-> "This slide has too many new symbols. Can we split?"
-
-### 7. Book Vision Challenges
-> "If this becomes a book chapter, does this section stand alone?"
+1. **读取目标文件**（被挑战的讲义）
+2. **读取知识库** `.claude/rules/` 中的符号惯例和叙事弧
+3. 如果适用，**阅读相邻讲义**以保证叙事连续性
 
 ---
 
-## Output Format
+## 挑战类别
+
+从这些类别生成 5-7 个挑战：
+
+### 1. 顺序挑战
+> "如果我们先展示 X 再展示 Y，学生能理解得更好吗？"
+
+### 2. 前提条件挑战
+> "学生在这一点是否有这种符号的背景知识？"
+
+### 3. 间隙挑战
+> "在这个正式证明之前，我们应该包括一个直观的例子吗？"
+
+### 4. 替代呈现挑战
+> "这是另外 2 种可视化/呈现这个概念的方式。"
+
+### 5. 符号冲突挑战
+> "这个符号与早期讲义的使用冲突。"
+
+### 6. 认知负荷挑战
+> "这张幻灯片有太多新符号。我们能分割吗？"
+
+### 7. 书籍愿景挑战
+> "如果这成为书的一章，这个部分是否独立存在？"
+
+---
+
+## 输出格式
 
 ```markdown
-# Devil's Advocate: [Lecture Title]
+# 恶魔代言人：[讲义标题]
 
-## Challenges
+## 挑战
 
-### Challenge 1: [Category] — [Short title]
-**Question:** [The specific pedagogical question]
-**Why it matters:** [What could go wrong]
-**Suggested resolution:** [Specific action]
-**Slides affected:** [Numbers or titles]
-**Severity:** [High / Medium / Low]
+### 挑战 1：[类别] — [简短标题]
+**问题：**[具体的教学法问题]
+**为什么重要：**[可能出什么问题]
+**建议的解决方案：**[具体行动]
+**受影响的幻灯片：**[数字或标题]
+**严重程度：**[高 / 中 / 低]
 
-[Repeat for 5-7 challenges]
+[对 5-7 个挑战重复]
 
-## Summary Verdict
-**Strengths:** [2-3 things done well]
-**Critical changes:** [0-2 changes before teaching]
-**Suggested improvements:** [2-3 nice-to-have changes]
+## 总结判决
+**优点：**[做得很好的 2-3 件事]
+**关键更改：**[教学前的 0-2 项更改]
+**建议的改进：**[2-3 项不错的更改]
 ```
 
 ---
 
-## Principles
+## 原则
 
-- **Be specific:** Reference exact slides and notation
-- **Be constructive:** Every challenge has a suggested resolution
-- **Be honest:** If the deck is good, say so
-- **Prioritize:** Notation conflicts > missed metaphors
-- **Think like a student:** Where do they get lost?
+- **要具体：**参考确切的幻灯片和符号
+- **要建设性：**每个挑战都有建议的解决方案
+- **要诚实：**如果幻灯片很好，说出来
+- **优先级：**符号冲突 > 遗漏的比喻
+- **像学生一样思考：**他们在哪里迷茫？
