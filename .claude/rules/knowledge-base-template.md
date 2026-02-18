@@ -2,55 +2,55 @@
 paths:
   - "Slides/**/*.tex"
   - "Quarto/**/*.qmd"
-  - "scripts/**/*.R"
+  - "scripts/**/*.py"
 ---
 
-# Course Knowledge Base: [YOUR COURSE NAME]
+# 课程知识库: [你的课程名称]
 
-<!-- Fill in the tables below with YOUR domain-specific content.
-     Claude reads this before creating/modifying any lecture content. -->
+<!-- 在下面的表格中填入你的领域特定内容。
+     Claude 在创建/修改任何讲座内容前读取此文件。 -->
 
-## Notation Registry
+## 记号注册表
 
-| Rule | Convention | Example | Anti-Pattern |
+| 规则 | 惯例 | 示例 | 反面模式 |
 |------|-----------|---------|-------------|
 | | | | |
 
-## Symbol Reference
+## 符号参考
 
-| Symbol | Meaning | Introduced |
+| 符号 | 含义 | 引入位置 |
 |--------|---------|------------|
 | | | |
 
-## Lecture Progression
+## 讲座进度
 
-| # | Title | Core Question | Key Notation | Key Method |
+| # | 标题 | 核心问题 | 关键记号 | 关键方法 |
 |---|-------|--------------|-------------|------------|
 | 1 | | | | |
 | 2 | | | | |
 
-## Empirical Applications
+## 实证应用
 
-| Application | Paper | Dataset | Lecture(s) | Purpose |
+| 应用 | 论文 | 数据集 | 讲座 | 目的 |
 |------------|-------|---------|------------|---------|
 | | | | | |
 
-## Design Principles
+## 设计原则
 
-| Principle | Evidence | Lectures Applied |
+| 原则 | 证据 | 应用讲座 |
 |-----------|----------|-----------------|
 | | | |
 
-## Anti-Patterns (Don't Do This)
+## 反面模式 (不要这样做)
 
-| Anti-Pattern | What Happened | Correction |
+| 反面模式 | 发生了什么 | 修正 |
 |-------------|---------------|-----------|
 | | | |
 
-## R Code Pitfalls
+## Python 代码陷阱
 
-| Bug | Impact | Fix |
+| 错误 | 影响 | 修复 |
 |-----|--------|-----|
 | | | |
 
-<!-- For research projects, add: Estimand Registry, DGP Configs, Tolerance Thresholds -->
+<!-- 对于研究项目,添加: Estimand 注册表, DGP 配置, 容差阈值 -->

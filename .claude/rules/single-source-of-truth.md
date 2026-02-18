@@ -5,65 +5,65 @@ paths:
   - "Slides/**/*.tex"
 ---
 
-# Single Source of Truth: Enforcement Protocol
+# 单一真相源：实施协议
 
-**The Beamer `.tex` file is the authoritative source for ALL content.** Everything else is derived.
+**Beamer `.tex` 文件是所有内容的权威源。** 其他一切都是派生的。
 
-## The SSOT Chain
+## SSOT 链
 
 ```
-Beamer .tex (SOURCE OF TRUTH)
-  ├── extract_tikz.tex → PDF → SVGs (derived)
-  ├── Quarto .qmd → HTML (derived)
-  ├── Bibliography_base.bib (shared)
-  └── Figures/LectureN/*.rds → plotly charts (data source)
+Beamer .tex （真相源）
+  ├── extract_tikz.tex → PDF → SVG（派生）
+  ├── Quarto .qmd → HTML（派生）
+  ├── Bibliography_base.bib（共享）
+  └── Figures/LectureN/*.rds → plotly 图表（数据源）
 
-NEVER edit derived artifacts independently.
-ALWAYS propagate changes from source → derived.
+永远不要独立编辑派生的工制品。
+始终从源 → 派生传播更改。
 ```
 
 ---
 
-## TikZ Freshness Protocol (MANDATORY)
+## TikZ 新鲜度协议（强制性）
 
-**Before using ANY TikZ SVG in a Quarto slide, verify it matches the current Beamer source.**
+**在 Quarto 幻灯片中使用任何 TikZ SVG 之前，验证它与当前 Beamer 源匹配。**
 
-### Diff-Check Procedure
+### Diff-检查过程
 
-1. Read the TikZ block from the Beamer `.tex` file
-2. Read the corresponding block from `Figures/LectureN/extract_tikz.tex`
-3. Compare EVERY coordinate, label, color, opacity, and anchor point
-4. If ANY difference exists: update `extract_tikz.tex` from Beamer, recompile, regenerate SVGs
-5. Only then reference the SVG in the QMD
+1. 从 Beamer `.tex` 文件读取 TikZ 块
+2. 从 `Figures/LectureN/extract_tikz.tex` 读取相应块
+3. 比较**每个**坐标、标签、颜色、不透明度和锚点
+4. 如果存在任何差异：从 Beamer 更新 `extract_tikz.tex`、重新编译、重新生成 SVG
+5. 仅在之后在 QMD 中引用 SVG
 
-### When to Re-Extract
+### 何时重新提取
 
-Re-extract ALL TikZ diagrams when:
-- The Beamer `.tex` file has been modified since last extraction
-- Starting a new Quarto translation
-- Any TikZ-related quality issue is reported
-- Before any commit that includes QMD changes
-
----
-
-## Environment Parity (MANDATORY)
-
-**Every Beamer environment MUST have a CSS equivalent before translation begins.**
-
-1. Scan the Beamer source for all custom environments
-2. Check each against your theme SCSS file
-3. If ANY environment is missing from SCSS, create it BEFORE translating
+在以下情况下重新提取所有 TikZ 图表：
+- Beamer `.tex` 文件自上次提取以来已被修改
+- 开始新的 Quarto 翻译
+- 报告任何与 TikZ 相关的质量问题
+- 在任何包含 QMD 更改的提交之前
 
 ---
 
-## Content Fidelity Checklist
+## 环境一致性（强制性）
+
+**在翻译开始前，每个 Beamer 环境必须有 CSS 等效项。**
+
+1. 扫描 Beamer 源以查找所有自定义环境
+2. 对照你的主题 SCSS 文件检查每个
+3. 如果 SCSS 中缺少任何环境，在翻译前创建它
+
+---
+
+## 内容保真度检查清单
 
 ```
-[ ] Frame count: Beamer frames == Quarto slides
-[ ] Math check: every equation appears with identical notation
-[ ] Citation check: every \cite has a @key in Quarto
-[ ] Environment check: every Beamer box has CSS equivalent
-[ ] Figure check: every \includegraphics has SVG or plotly equivalent
-[ ] No added content: Quarto does not invent slides not in Beamer
-[ ] No dropped content: every Beamer idea appears in Quarto
+[ ] 帧数：Beamer 帧 == Quarto 幻灯片
+[ ] 数学检查：每个方程都以相同的记号出现
+[ ] 引用检查：每个 \cite 在 Quarto 中都有 @key
+[ ] 环境检查：每个 Beamer 框都有 CSS 等效项
+[ ] 图形检查：每个 \includegraphics 都有 SVG 或 plotly 等效项
+[ ] 无添加内容：Quarto 不发明 Beamer 中不存在的幻灯片
+[ ] 无丢失内容：每个 Beamer 想法都出现在 Quarto 中
 ```

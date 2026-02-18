@@ -3,40 +3,40 @@ paths:
   - "explorations/**"
 ---
 
-# Exploration Folder Protocol
+# 探索文件夹协议
 
-**All experimental work goes into `explorations/` first.** Never directly into production folders.
+**所有实验工作首先进入 `explorations/` 文件夹。** 永远不要直接进入生产文件夹。
 
-## Folder Structure
+## 文件夹结构
 
 ```
 explorations/
 ├── ACTIVE_PROJECTS.md
 ├── [project]/
-│   ├── README.md          # Goal, status, findings
-│   ├── R/                 # Code (use _v1, _v2 for iterations)
-│   ├── scripts/           # Test scripts
-│   ├── output/            # Results
-│   └── SESSION_LOG.md     # Progress notes
+│   ├── README.md          # 目标、状态、发现
+│   ├── src/               # 代码 (使用 _v1, _v2 表示迭代)
+│   ├── scripts/           # 测试脚本
+│   ├── output/            # 结果
+│   └── SESSION_LOG.md     # 进度笔记
 └── ARCHIVE/
     ├── completed_[project]/
     └── abandoned_[project]/
 ```
 
-## Lifecycle
+## 生命周期
 
-1. **Create** -- `mkdir -p explorations/[name]/{R,scripts,output}` + README from `templates/exploration-readme.md`
-2. **Develop** -- work entirely within the exploration folder
-3. **Decide:**
+1. **创建** -- `mkdir -p explorations/[name]/{src,scripts,output}` + README 来自 `templates/exploration-readme.md`
+2. **开发** -- 完全在探索文件夹内工作
+3. **决定:**
 
-   - **Graduate to production** -- copy to `R/`, `scripts/`; requires quality >= 80, tests pass, code clear. Move to `ARCHIVE/completed_[project]/`
-   - **Keep exploring** -- document next steps in README
-   - **Abandon** -- move to `ARCHIVE/abandoned_[project]/` with explanation (use `templates/archive-readme.md`)
+   - **毕业到生产** -- 复制到 `src/`、`scripts/`；需要质量 >= 80、所有测试通过、代码清晰。移动到 `ARCHIVE/completed_[project]/`
+   - **继续探索** -- 在 README 中记录后续步骤
+   - **放弃** -- 移动到 `ARCHIVE/abandoned_[project]/` 并附上解释 (使用 `templates/archive-readme.md`)
 
-## Graduate Checklist
+## 毕业检查清单
 
-- [ ] Quality score >= 80
-- [ ] All tests pass
-- [ ] Results replicate within tolerance
-- [ ] Code is clear without deep context
-- [ ] README explains approach and findings
+- [ ] 质量分数 >= 80
+- [ ] 所有测试通过
+- [ ] 结果在容差范围内复现
+- [ ] 代码清晰易懂
+- [ ] README 解释方法和发现

@@ -3,18 +3,18 @@ paths:
   - "explorations/**"
 ---
 
-# Exploration Fast-Track
+# 探索快速跑道
 
-**Lightweight workflow for experimental work.** Quality threshold: 60/100 (vs 80 for production). No planning needed.
+**轻量级实验工作流。** 质量阈值: 60/100 (对比生产的 80)。无需规划。
 
-## Steps
+## 步骤
 
-1. **Research value check** -- Does this improve the project? If NO, don't build it.
-2. **Create folder** -- `mkdir -p explorations/[name]/{R,scripts,output}` + README + SESSION_LOG.md
-3. **Code immediately** -- no plan needed. Must-haves: code runs, results correct, goal documented. Not needed: Roxygen docs, full tests, perfect style.
-4. **Log progress** -- append 2-3 lines to SESSION_LOG.md as you work
-5. **Decision point** -- keep exploring, graduate to production (upgrade to 80/100), or archive with brief explanation
+1. **研究价值检查** -- 这是否改进项目? 如果否,不要构建。
+2. **创建文件夹** -- `mkdir -p explorations/[name]/{src,scripts,output}` + README + SESSION_LOG.md
+3. **立即编码** -- 无需规划。必备: 代码运行、结果正确、目标已记录。不需要: 完整文档、全面测试、完美风格。
+4. **记录进度** -- 在工作时追加 2-3 行到 SESSION_LOG.md
+5. **决策点** -- 继续探索、毕业到生产(升级到 80/100)、或以简要说明存档
 
-## When to Stop (Kill Switch)
+## 何时停止 (Kill Switch)
 
-At any point: stop, archive with note ("Attempted X, hit blocker Y"), move on. No guilt -- exploration is inherently uncertain.
+任何时候: 停止、以备注存档("尝试 X,遇到阻力 Y")、继续。无需自责 -- 探索本质上是不确定的。

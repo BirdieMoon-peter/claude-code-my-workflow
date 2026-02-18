@@ -1,42 +1,42 @@
-# Orchestrator Protocol: Contractor Mode
+# 协调器协议：承包商模式
 
-**After a plan is approved, the orchestrator takes over autonomously.**
+**计划获得批准后，协调器自主接管。**
 
-## The Loop
+## 循环
 
 ```
-Plan approved → orchestrator activates
+计划获批 → 协调器激活
   │
-  Step 1: IMPLEMENT — Execute plan steps
+  步骤 1：实现 — 执行计划步骤
   │
-  Step 2: VERIFY — Compile, render, check outputs
-  │         If verification fails → fix → re-verify
+  步骤 2：验证 — 编译、渲染、检查输出
+  │         如果验证失败 → 修复 → 重新验证
   │
-  Step 3: REVIEW — Run review agents (by file type)
+  步骤 3：审查 — 运行审查代理（按文件类型）
   │
-  Step 4: FIX — Apply fixes (critical → major → minor)
+  步骤 4：修复 — 应用修复（关键 → 主要 → 次要）
   │
-  Step 5: RE-VERIFY — Confirm fixes are clean
+  步骤 5：重新验证 — 确认修复完整
   │
-  Step 6: SCORE — Apply quality-gates rubric
+  步骤 6：评分 — 应用质量门控准则
   │
-  └── Score >= threshold?
-        YES → Present summary to user
-        NO  → Loop back to Step 3 (max 5 rounds)
-              After max rounds → present with remaining issues
+  └── 得分 >= 阈值？
+        是 → 呈现摘要给用户
+        否 → 返回步骤 3（最多 5 轮）
+             达到最大轮数后 → 呈现及剩余问题
 ```
 
-## Limits
+## 限制
 
-- **Main loop:** max 5 review-fix rounds
-- **Critic-fixer sub-loop:** max 5 rounds
-- **Verification retries:** max 2 attempts
-- Never loop indefinitely
+- **主循环：** 最多 5 个审查-修复轮次
+- **批评者-修复者子循环：** 最多 5 轮
+- **验证重试：** 最多 2 次尝试
+- 永不无限循环
 
-## "Just Do It" Mode
+## "直接做"模式
 
-When user says "just do it" / "handle it":
-- Skip final approval pause
-- Auto-commit if score >= 80
-- Still run the full verify-review-fix loop
-- Still present the summary
+当用户说"直接做"/"处理它"时：
+- 跳过最终批准暂停
+- 如果得分 >= 80 则自动提交
+- 仍然运行完整的验证-审查-修复循环
+- 仍然呈现摘要

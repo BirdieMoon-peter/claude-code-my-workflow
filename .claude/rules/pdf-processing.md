@@ -3,21 +3,21 @@ paths:
   - "master_supporting_docs/**"
 ---
 
-# Robust PDF Processing
+# 稳健的 PDF 处理
 
-## The Safe Processing Workflow
+## 安全处理工作流
 
-**Step 1: Receive PDF Upload**
-- User uploads PDF to `master_supporting_docs/supporting_papers/` or `supporting_slides/`
-- Claude DOES NOT attempt to read it directly
+**步骤 1: 接收 PDF 上传**
+- 用户上传 PDF 到 `master_supporting_docs/supporting_papers/` 或 `supporting_slides/`
+- Claude 不会尝试直接读取
 
-**Step 2: Check PDF Properties**
+**步骤 2: 检查 PDF 属性**
 ```bash
 pdfinfo paper_name.pdf | grep "Pages:"
 ls -lh paper_name.pdf
 ```
 
-**Step 3: Create Subfolder and Split**
+**步骤 3: 创建子文件夹并分割**
 ```bash
 mkdir -p paper_name/
 
@@ -31,30 +31,30 @@ for i in {0..9}; do
 done
 ```
 
-**Step 4: Process Chunks Intelligently**
-- Read chunks ONE AT A TIME using the Read tool
-- Extract key information from each chunk
-- Build understanding progressively
-- Don't try to hold all chunks in working memory
+**步骤 4: 智能处理块**
+- 一次使用 Read 工具读取一个块
+- 从每个块中提取关键信息
+- 逐步建立理解
+- 不要试图在工作内存中保留所有块
 
-**Step 5: Selective Deep Reading**
-- After scanning all chunks, identify the most relevant sections
-- Only read those sections in detail for slide development
-- Skip appendices, references, or less relevant sections unless needed
+**步骤 5: 选择性深度阅读**
+- 扫描所有块后,识别最相关的部分
+- 只详细读取这些部分以进行幻灯片开发
+- 跳过附录、参考文献或不太相关的部分,除非需要
 
-## Error Handling Protocol
+## 错误处理协议
 
-**If a chunk fails to process:**
-1. Note the problematic chunk (e.g., "Chunk p021-025 failed")
-2. Try splitting into 1-2 page pieces
-3. If still failing, skip and document the gap
+**如果块处理失败:**
+1. 注意有问题的块 (例如,"块 p021-025 失败")
+2. 尝试分割成 1-2 页块
+3. 如果仍然失败,跳过并记录间隙
 
-**If splitting fails:**
-1. Check if Ghostscript is installed: `gs --version`
-2. Try alternative: `pdftk paper.pdf burst output paper_%03d.pdf`
-3. If all else fails, ask user to upload specific page ranges manually
+**如果分割失败:**
+1. 检查 Ghostscript 是否已安装: `gs --version`
+2. 尝试替代方法: `pdftk paper.pdf burst output paper_%03d.pdf`
+3. 如果一切都失败,要求用户手动上传特定页面范围
 
-**If memory/token issues persist:**
-1. Process only 2-3 chunks per session
-2. Focus on specific sections user identifies as most important
+**如果内存/token 问题仍然存在:**
+1. 每个 session 只处理 2-3 个块
+2. 关注用户确定的最重要的特定部分
 

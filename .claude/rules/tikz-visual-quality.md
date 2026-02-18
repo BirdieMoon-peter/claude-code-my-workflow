@@ -4,53 +4,53 @@ paths:
   - "Figures/**/*.tex"
 ---
 
-# TikZ Visual Quality Standards
+# TikZ 视觉质量标准
 
-**Every TikZ diagram must be visually polished before it is considered complete.**
+**每个 TikZ 图表在完成前必须视觉精细打磨。**
 
-## Label Positioning
+## 标签定位
 
-- Labels must NEVER overlap with curves, lines, dots, braces, or other labels
-- When two labels are near the same vertical position, stagger them
-- Group labels: right of final data point
-- Axis labels: at arrow tips
-- Annotation labels: adjacent to braces/arrows, outside data area
-- Use consistent font size
+- 标签绝不能与曲线、线条、点、括号或其他标签重叠
+- 当两个标签靠近相同的垂直位置时,将其交错放置
+- 组标签: 最后数据点右侧
+- 轴标签: 在箭头尖端
+- 注释标签: 靠近括号/箭头,在数据区域外
+- 使用一致的字体大小
 
-## Visual Semantics
+## 视觉语义
 
-- **Solid dots/lines** = observed outcomes, realized paths
-- **Hollow circles/dashed lines** = counterfactual outcomes, unrealized paths
-- Use consistent colors for semantic meaning (positive, negative, neutral)
-- Define colors in your Beamer theme for reuse
+- **实心点/实线** = 观察到的结果、已实现的路径
+- **空心圆/虚线** = 反事实结果、未实现的路径
+- 使用一致的颜色表示语义含义 (正面、负面、中立)
+- 在 Beamer 主题中定义颜色以便重用
 
-### Line Weights
-- Axes: `thick`
-- Data lines: `thick`
-- Annotation arrows: `thick` (NOT `very thick`)
-- Grid/reference lines: `dashed, gray!40`
+### 线条宽度
+- 轴: `thick`
+- 数据线: `thick`
+- 注释箭头: `thick` (不是 `very thick`)
+- 网格/参考线: `dashed, gray!40`
 
-## Spacing and Proportions
+## 间距和比例
 
-- Standard scale: `[scale=1.1]` for full-width diagrams
-- Dot radius: `4pt` for data points
-- Minimum 0.2 units between any label and nearest graphical element
-- Axes extend beyond all data points
+- 标准缩放: `[scale=1.1]` 用于全宽图表
+- 点半径: `4pt` 用于数据点
+- 任何标签与最近图形元素之间的最小距离: 0.2 单位
+- 轴延伸超过所有数据点
 
-## Checklist
+## 检查清单
 
 ```
-[ ] No label-label overlaps
-[ ] No label-curve overlaps
-[ ] Consistent dot style (solid=observed, hollow=counterfactual)
-[ ] Consistent line style (solid=observed, dashed=counterfactual)
-[ ] Color semantics correct
-[ ] Arrow annotations point FROM label TO feature
-[ ] Axes extend beyond all data points
-[ ] Labels legible at presentation size
+[ ] 无标签-标签重叠
+[ ] 无标签-曲线重叠
+[ ] 一致的点样式 (实心=观察,空心=反事实)
+[ ] 一致的线条样式 (实线=观察,虚线=反事实)
+[ ] 颜色语义正确
+[ ] 箭头注释从标签指向特征
+[ ] 轴延伸超过所有数据点
+[ ] 标签在演示大小下清晰可读
 ```
 
-## Single Source of Truth
+## 唯一信息源
 
-**The Beamer `.tex` file is the authoritative source for ALL TikZ diagrams.**
-Edit TikZ in the Beamer file FIRST, then copy verbatim to `extract_tikz.tex`.
+**Beamer `.tex` 文件是所有 TikZ 图表的权威来源。**
+首先在 Beamer 文件中编辑 TikZ,然后逐字复制到 `extract_tikz.tex`。

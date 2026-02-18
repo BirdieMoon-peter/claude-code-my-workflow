@@ -2,66 +2,66 @@
 paths:
   - "Slides/**/*.tex"
   - "Quarto/**/*.qmd"
-  - "scripts/**/*.R"
+  - "scripts/**/*.py"
 ---
 
-# Quality Gates & Scoring Rubrics
+# 质量门槛和评分规则
 
-## Thresholds
+## 阈值
 
-- **80/100 = Commit** -- good enough to save
-- **90/100 = PR** -- ready for deployment
-- **95/100 = Excellence** -- aspirational
+- **80/100 = Commit** -- 足够好，可以保存
+- **90/100 = PR** -- 准备好部署
+- **95/100 = Excellence** -- 理想状态
 
-## Quarto Slides (.qmd)
+## Quarto 幻灯片 (.qmd)
 
-| Severity | Issue | Deduction |
+| 严重程度 | 问题 | 扣分 |
 |----------|-------|-----------|
-| Critical | Compilation failure | -100 |
-| Critical | Equation overflow | -20 |
-| Critical | Broken citation | -15 |
-| Critical | Typo in equation | -10 |
-| Major | Text overflow | -5 |
-| Major | TikZ label overlap | -5 |
-| Major | Notation inconsistency | -3 |
-| Minor | Font size reduction | -1 per slide |
-| Minor | Long lines (>100 chars) | -1 (EXCEPT documented math formulas) |
+| Critical | Compilation 失败 | -100 |
+| Critical | 方程溢出 | -20 |
+| Critical | 破损的引用 | -15 |
+| Critical | 方程中的拼写错误 | -10 |
+| Major | 文本溢出 | -5 |
+| Major | TikZ 标签重叠 | -5 |
+| Major | 记号不一致 | -3 |
+| Minor | 字体大小减小 | -1 每张幻灯片 |
+| Minor | 长行 (>100 字符) | -1 (数学公式除外) |
 
-## R Scripts (.R)
+## Python 脚本 (.py)
 
-| Severity | Issue | Deduction |
+| 严重程度 | 问题 | 扣分 |
 |----------|-------|-----------|
-| Critical | Syntax errors | -100 |
-| Critical | Domain-specific bugs | -30 |
-| Critical | Hardcoded absolute paths | -20 |
-| Major | Missing set.seed() | -10 |
-| Major | Missing figure generation | -5 |
+| Critical | 语法错误 | -100 |
+| Critical | 领域特定的错误 | -30 |
+| Critical | 硬编码的绝对路径 | -20 |
+| Major | 缺少随机种子设置 | -10 |
+| Major | 缺少图形生成 | -5 |
 
-## Beamer Slides (.tex)
+## Beamer 幻灯片 (.tex)
 
-| Severity | Issue | Deduction |
+| 严重程度 | 问题 | 扣分 |
 |----------|-------|-----------|
-| Critical | XeLaTeX compilation failure | -100 |
-| Critical | Undefined citation | -15 |
+| Critical | XeLaTeX compilation 失败 | -100 |
+| Critical | 未定义的引用 | -15 |
 | Critical | Overfull hbox > 10pt | -10 |
 
-## Enforcement
+## 执行
 
-- **Score < 80:** Block commit. List blocking issues.
-- **Score < 90:** Allow commit, warn. List recommendations.
-- User can override with justification.
+- **Score < 80:** 阻止提交。列出阻止问题。
+- **Score < 90:** 允许提交，发出警告。列出建议。
+- 用户可以通过提供理由来覆盖。
 
-## Quality Reports
+## 质量报告
 
-Generated **only at merge time**. Use `templates/quality-report.md` for format.
-Save to `quality_reports/merges/YYYY-MM-DD_[branch-name].md`.
+仅在合并时生成。使用 `templates/quality-report.md` 格式。
+保存到 `quality_reports/merges/YYYY-MM-DD_[branch-name].md`。
 
-## Tolerance Thresholds (Research)
+## 容差阈值 (Research)
 
-<!-- Customize for your domain -->
+<!-- 为你的领域自定义 -->
 
-| Quantity | Tolerance | Rationale |
+| 数量 | 容差 | 理由 |
 |----------|-----------|-----------|
-| Point estimates | [e.g., 1e-6] | [Numerical precision] |
-| Standard errors | [e.g., 1e-4] | [MC variability] |
-| Coverage rates | [e.g., +/- 0.01] | [MC with B reps] |
+| 点估计 | [例如 1e-6] | [数值精度] |
+| 标准误差 | [例如 1e-4] | [MC 变异性] |
+| 覆盖率 | [例如 +/- 0.01] | [MC with B reps] |

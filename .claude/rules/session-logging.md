@@ -1,23 +1,23 @@
-# Session Logging
+# 会话日志
 
-**Location:** `quality_reports/session_logs/YYYY-MM-DD_description.md`
-**Template:** `templates/session-log.md`
+**位置：** `quality_reports/session_logs/YYYY-MM-DD_description.md`
+**模板：** `templates/session-log.md`
 
-## Three Triggers (all proactive)
+## 三个触发器（全部主动）
 
-### 1. Post-Plan Log
+### 1. 计划后日志
 
-After plan approval, immediately capture: goal, approach, rationale, key context.
+计划批准后，立即捕获：目标、方法、理由、关键背景。
 
-### 2. Incremental Logging
+### 2. 增量日志
 
-Append 1-3 lines whenever: a design decision is made, a problem is solved, the user corrects something, or the approach changes. Do not batch.
+每当发生以下情况时追加 1-3 行：做出设计决策、解决问题、用户纠正内容或方法改变。不要批处理。
 
-### 3. End-of-Session Log
+### 3. 会话结束日志
 
-When wrapping up: high-level summary, quality scores, open questions, blockers.
+结束时：高层摘要、质量评分、未解决的问题、阻滞。
 
-## Quality Reports
+## 质量报告
 
-Generated **only at merge time** -- not at every commit or PR.
-Save to `quality_reports/merges/YYYY-MM-DD_[branch-name].md` using `templates/quality-report.md`.
+**仅在合并时**生成 -- 不在每次提交或 PR 时生成。
+保存到 `quality_reports/merges/YYYY-MM-DD_[branch-name].md`，使用 `templates/quality-report.md`。

@@ -5,49 +5,49 @@ paths:
   - "docs/**"
 ---
 
-# Task Completion Verification Protocol
+# 任务完成验证协议
 
-**At the end of EVERY task, Claude MUST verify the output works correctly.** This is non-negotiable.
+**在每项任务结束时，Claude 必须验证输出工作正确。** 这是不可协商的。
 
-## For Quarto/HTML Slides:
-1. Run `./scripts/sync_to_docs.sh` (or `./scripts/sync_to_docs.sh LectureN`) to render and deploy
-2. Open the HTML in browser: `open docs/slides/LectureX.html`
-3. Verify images display by reading 2-3 image files to confirm valid content
-4. Check HTML source for correct image paths
-5. Check for overflow by scanning dense slides
-6. Verify environment parity: every Beamer box environment has a CSS equivalent in the QMD
-7. Report verification results
+## 对于 Quarto/HTML 幻灯片：
+1. 运行 `./scripts/sync_to_docs.sh`（或 `./scripts/sync_to_docs.sh LectureN`）以渲染和部署
+2. 在浏览器中打开 HTML：`open docs/slides/LectureX.html`
+3. 通过读取 2-3 个图像文件来验证图像显示以确认有效内容
+4. 检查 HTML 源代码的正确图像路径
+5. 通过扫描密集幻灯片来检查溢出
+6. 验证环境一致性：每个 Beamer 框环境在 QMD 中都有 CSS 等效项
+7. 报告验证结果
 
-## For LaTeX/Beamer Slides:
-1. Compile with xelatex and check for errors
-2. Open the PDF to verify figures render
-3. Check for overfull hbox warnings
+## 对于 LaTeX/Beamer 幻灯片：
+1. 使用 xelatex 编译并检查错误
+2. 打开 PDF 以验证图形渲染
+3. 检查过满 hbox 警告
 
-## For TikZ Diagrams in HTML/Quarto:
-1. Browsers **cannot** display PDF images inline — ALWAYS convert to SVG
-2. Use SVG (vector format) for crisp rendering: `pdf2svg input.pdf output.svg`
-3. **NEVER use PNG for diagrams** — PNG is raster and looks blurry
-4. Verify SVG files contain valid XML/SVG markup
-5. Copy SVGs to `docs/Figures/LectureX/` via `sync_to_docs.sh`
-6. **Freshness check:** Before using any TikZ SVG, verify extract_tikz.tex matches current Beamer source
+## 对于 HTML/Quarto 中的 TikZ 图表：
+1. 浏览器**无法**内联显示 PDF 图像 — 始终转换为 SVG
+2. 使用 SVG（矢量格式）进行清晰渲染：`pdf2svg input.pdf output.svg`
+3. **绝不使用 PNG 作为图表** — PNG 是光栅格式，看起来模糊
+4. 验证 SVG 文件包含有效的 XML/SVG 标记
+5. 通过 `sync_to_docs.sh` 将 SVG 复制到 `docs/Figures/LectureX/`
+6. **新鲜度检查：** 在使用任何 TikZ SVG 之前，验证 extract_tikz.tex 与当前 Beamer 源匹配
 
-## For R Scripts:
-1. Run `Rscript scripts/R/filename.R`
-2. Verify output files (PDF, RDS) were created with non-zero size
-3. Spot-check estimates for reasonable magnitude
+## 对于 R 脚本：
+1. 运行 `Rscript scripts/R/filename.R`
+2. 验证输出文件（PDF、RDS）已创建且大小不为零
+3. 抽查估计是否合理
 
-## Common Pitfalls:
-- **PDF images in HTML**: Browsers don't render PDFs inline → convert to SVG
-- **Relative paths**: `../Figures/` works from `Quarto/` but not from `docs/slides/` → use `sync_to_docs.sh`
-- **Assuming success**: Always verify output files exist AND contain correct content
-- **Stale TikZ SVGs**: extract_tikz.tex diverges from Beamer source → always diff-check
+## 常见陷阱：
+- **HTML 中的 PDF 图像**：浏览器不内联渲染 PDF → 转换为 SVG
+- **相对路径**：`../Figures/` 从 `Quarto/` 有效，但从 `docs/slides/` 无效 → 使用 `sync_to_docs.sh`
+- **假设成功**：始终验证输出文件存在且包含正确内容
+- **陈旧的 TikZ SVG**：extract_tikz.tex 与 Beamer 源不同步 → 始终进行 diff-check
 
-## Verification Checklist:
+## 验证检查清单：
 ```
-[ ] Output file created successfully
-[ ] No compilation/render errors
-[ ] Images/figures display correctly
-[ ] Paths resolve in deployment location (docs/)
-[ ] Opened in browser/viewer to confirm visual appearance
-[ ] Reported results to user
+[ ] 输出文件成功创建
+[ ] 无编译/渲染错误
+[ ] 图像/图形正确显示
+[ ] 路径在部署位置（docs/）中解析
+[ ] 在浏览器/查看器中打开以确认视觉外观
+[ ] 向用户报告结果
 ```
