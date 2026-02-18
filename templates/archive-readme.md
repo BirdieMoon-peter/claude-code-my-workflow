@@ -1,14 +1,14 @@
-# Abandoned: [Project Name] ([DATE RANGE])
+# 已放弃：[项目名称]（[日期范围]）
 
-## Why Abandoned
-[1-2 sentence explanation]
+## 放弃原因
+[1-2 句话说明]
 
-## What Was Tried
-- [Approach 1]
-- [Approach 2]
+## 尝试过的方法
+- [方法 1]
+- [方法 2]
 
-## Learnings
-- [LEARN:category] What you learned for future reference
+## 学习内容
+- [LEARN:category] 为将来参考学到的内容
 
-## Would Revisiting Require
-- [What would need to be true to try this again?]
+## 重新考虑需要什么条件
+- [需要什么条件才能重新尝试？]

@@ -1,40 +1,40 @@
-# Session Log: [Date] -- [Brief Title]
+# 会话日志：[日期] -- [简短标题]
 
-**Status:** IN PROGRESS | COMPLETED
+**状态:** 进行中 | 已完成
 
-## Objective
-[What we set out to accomplish this session]
+## 目标
+[本会话要完成的任务说明]
 
-## Changes Made
+## 所作改动
 
-| File | Change | Reason | Quality Score |
+| 文件 | 改动内容 | 原因 | 质量分数 |
 |------|--------|--------|---|
-| `path/to/file` | [What changed] | [Why] | [N]/100 |
+| `path/to/file` | [做了什么改动] | [为什么] | [N]/100 |
 
-## Design Decisions
+## 设计决策
 
-| Decision | Alternatives Considered | Rationale |
+| 决策 | 考虑的替代方案 | 理由 |
 |----------|------------------------|-----------|
-| [Choice made] | [Other options] | [Why this one] |
+| [做出的选择] | [其他选项] | [为什么选这个] |
 
-## Incremental Work Log
+## 增量工作日志
 
-**HH:MM UTC:** [event description]
+**HH:MM UTC:** [事件描述]
 
-## Learnings & Corrections
+## 学习与改正
 
-- [LEARN:category] What you learned for future reference
+- [LEARN:category] 为将来参考学到的内容
 
-## Verification Results
+## 验证结果
 
-| Check | Result | Status |
+| 检查项 | 结果 | 状态 |
 |-------|--------|--------|
-| [What was checked] | [Result] | PASS / FAIL |
+| [检查了什么] | [结果] | 通过 / 失败 |
 
-## Open Questions / Blockers
+## 未解决的问题 / 阻碍因素
 
-- [ ] [Question or blocker]
+- [ ] [问题或阻碍]
 
-## Next Steps
+## 后续步骤
 
-- [ ] [What remains]
+- [ ] [剩余工作]

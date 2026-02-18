@@ -1,86 +1,86 @@
-# Workflow Quick Reference
+# 工作流快速参考
 
-**Model:** Contractor (you direct, Claude orchestrates)
+**模式：** 承包商（您指导，Claude 协调）
 
 ---
 
-## The Loop
+## 循环流程
 
 ```
-Your instruction
+您的指示
     ↓
-[PLAN] (if multi-file or unclear) → Show plan → Your approval
+[计划] （如果涉及多个文件或不清楚） → 显示计划 → 您的批准
     ↓
-[EXECUTE] Implement, verify, done
+[执行] 实现、验证、完成
     ↓
-[REPORT] Summary + what's ready
+[报告] 摘要 + 就绪内容
     ↓
-Repeat
+重复
 ```
 
 ---
 
-## I Ask You When
+## 我咨询您的情况
 
-- **Design forks:** "Option A (fast) vs. Option B (robust). Which?"
-- **Code ambiguity:** "Spec unclear on X. Assume Y?"
-- **Replication edge case:** "Just missed tolerance. Investigate?"
-- **Scope question:** "Also refactor Y while here, or focus on X?"
-
----
-
-## I Just Execute When
-
-- Code fix is obvious (bug, pattern application)
-- Verification (tolerance checks, tests, compilation)
-- Documentation (logs, commits)
-- Plotting (per established standards)
-- Deployment (after you approve, I ship automatically)
+- **设计分支：** "选项 A（快速）vs. 选项 B（稳健）。选哪个？"
+- **代码歧义：** "规范对 X 不清楚。假设 Y？"
+- **复现边界情况：** "刚好未达容差。调查？"
+- **范围问题：** "同时重构 Y，还是仅关注 X？"
 
 ---
 
-## Quality Gates (No Exceptions)
+## 我直接执行的情况
 
-| Score | Action |
-|-------|--------|
-| >= 80 | Ready to commit |
-| < 80  | Fix blocking issues |
-
----
-
-## Non-Negotiables (Customize These)
-
-<!-- Replace with YOUR project's locked-in preferences -->
-
-- [YOUR PATH CONVENTION] (e.g., `here::here()` for R, relative paths for LaTeX)
-- [YOUR SEED CONVENTION] (e.g., `set.seed()` once at top for stochastic code)
-- [YOUR FIGURE STANDARDS] (e.g., white bg, 300 DPI, custom theme)
-- [YOUR COLOR PALETTE] (e.g., institutional colors)
-- [YOUR TOLERANCE THRESHOLDS] (e.g., 1e-6 for point estimates)
+- 代码修复很明显（错误、模式应用）
+- 验证（容差检查、测试、编译）
+- 文档（日志、提交）
+- 绘图（按既定标准）
+- 部署（您批准后，我自动发布）
 
 ---
 
-## Preferences
+## 质量门槛（无例外）
 
-<!-- Fill in as you discover your working style -->
-
-**Visual:** [How you want figures/plots handled]
-**Reporting:** [Concise bullets? Detailed prose? Details on request?]
-**Session logs:** Always (post-plan, incremental, end-of-session)
-**Replication:** [How strict? Flag near-misses?]
+| 分数 | 操作 |
+|------|------|
+| >= 80 | 可以提交 |
+| < 80  | 修复阻塞问题 |
 
 ---
 
-## Exploration Mode
+## 必须遵守的规则（自定义这些）
 
-For experimental work, use the **Fast-Track** workflow:
-- Work in `explorations/` folder
-- 60/100 quality threshold (vs. 80/100 for production)
-- No plan needed — just a research value check (2 min)
-- See `.claude/rules/exploration-fast-track.md`
+<!-- 用您项目的锁定偏好替换 -->
+
+- [您的路径约定] （例如，Python 用 `pathlib.Path`，LaTeX 用相对路径）
+- [您的种子约定] （例如，在顶部为随机代码设置一次 `random.seed()`）
+- [您的图形标准] （例如，白色背景、300 DPI、自定义主题）
+- [您的调色板] （例如，机构颜色）
+- [您的容差阈值] （例如，点估计 1e-6）
 
 ---
 
-## Next Step
+## 偏好设置
 
-You provide task → I plan (if needed) → Your approval → Execute → Done.
+<!-- 随着工作风格的发现填写 -->
+
+**视觉：** [您希望如何处理图形/绘图]
+**报告：** [简洁要点？详细散文？按需详细？]
+**会话日志：** 始终（计划后、增量、会话结束时）
+**复现：** [多严格？标记接近的错过？]
+
+---
+
+## 探索模式
+
+对于实验性工作，使用 **快速通道** 工作流：
+- 在 `explorations/` 文件夹中工作
+- 60/100 质量阈值（vs. 生产环境的 80/100）
+- 不需要计划 — 仅需研究价值检查（2 分钟）
+- 查看 `.claude/rules/exploration-fast-track.md`
+
+---
+
+## 下一步
+
+您提供任务 → 我规划（如需） → 您批准 → 执行 → 完成。

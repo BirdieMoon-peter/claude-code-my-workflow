@@ -1,229 +1,230 @@
-# My Claude Code Setup
+# Claude Code 学术工作流（中文版）
 
-> **Work in progress.** This is not meant to be a polished guide for everyone. It's mostly a summary of how I've been using Claude Code for academic work — creating lecture slides, writing R scripts, managing Beamer-to-Quarto workflows, and so on. I keep learning new things, and as I do, I keep updating these files. This is just a way for me to share what I've figured out with friends and colleagues.
+> **工作进行中。** 这不是为每个人准备的精美指南。它主要是我如何使用 Claude Code 进行学术工作的总结 — 创建讲座幻灯片、编写 Python 脚本、管理 Beamer 转 Quarto 工作流等。我不断学习新事物，随着学习的进行，我也不断更新这些文件。这只是我与朋友和同事分享我的心得的一种方式。
 
-**Live site:** [psantanna.com/claude-code-my-workflow](https://psantanna.com/claude-code-my-workflow/)
+**在线网站：** [psantanna.com/claude-code-my-workflow](https://psantanna.com/claude-code-my-workflow/)
 
-A ready-to-fork starter kit for academics using [Claude Code](https://code.claude.com/docs/en/overview) with **LaTeX/Beamer + R + Quarto**. You describe what you want; Claude plans the approach, runs specialized agents, fixes issues, verifies quality, and presents results — like a contractor who handles the entire job. Extracted from a production PhD course (6 lectures, 800+ slides).
+这是一个为使用 [Claude Code](https://code.claude.com/docs/en/overview) 进行学术工作的研究人员准备的即用型启动工具包，支持 **LaTeX/Beamer + Python + Quarto**。你描述你想要的内容；Claude 规划方法、运行专门的代理、修复问题、验证质量并呈现结果 — 就像一个承包商处理整个工作。该工作流从一门生产环境中的博士课程中提取（6 节课，800+ 幻灯片）。
 
 ---
 
-## Quick Start (5 minutes)
+## 快速开始（5 分钟）
 
-### 1. Fork & Clone
+### 1. Fork 和克隆
 
 ```bash
-# Fork this repo on GitHub (click "Fork" on the repo page), then:
+# 在 GitHub 上 Fork 此仓库（点击仓库页面上的 "Fork"），然后：
 git clone https://github.com/YOUR_USERNAME/claude-code-my-workflow.git my-project
 cd my-project
 ```
 
-Replace `YOUR_USERNAME` with your GitHub username.
+将 `YOUR_USERNAME` 替换为你的 GitHub 用户名。
 
-### 2. Start Claude Code and Paste This Prompt
+### 2. 启动 Claude Code 并粘贴此提示
 
 ```bash
 claude
 ```
 
-**Using VS Code?** Open the Claude Code panel instead. Everything works the same — see the [full guide](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-setup) for details.
+**使用 VS Code？** 打开 Claude Code 面板即可。所有操作都一样 — 查看 [完整指南](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-setup) 获取详细信息。
 
-Then paste the following, filling in your project details:
+然后粘贴以下内容，填入你的项目细节：
 
-> I am starting to work on **[PROJECT NAME]** in this repo. **[Describe your project in 2–3 sentences — what you're building, who it's for, what tools you use.]**
+> 我开始在这个仓库中处理 **[项目名称]**。**[用 2-3 句话描述你的项目 — 你要构建什么、为谁构建、使用什么工具。]**
 >
-> I want our collaboration to be structured, precise, and rigorous. When creating visuals, everything must be polished and publication-ready.
+> 我希望我们的协作是结构化的、精确的和严谨的。创建视觉内容时，一切必须是精美的、可发表水平。
 >
-> I've set up the Claude Code academic workflow (forked from `pedrohcgs/claude-code-my-workflow`). The configuration files are already in this repo. Please read them, understand the workflow, and then **update all configuration files to fit my project** — fill in placeholders in `CLAUDE.md`, adjust rules if needed, and propose any customizations specific to my use case.
+> 我已经设置了 Claude Code 学术工作流（从 `pedrohcgs/claude-code-my-workflow` fork）。配置文件已在此仓库中。请阅读它们、理解工作流，然后 **更新所有配置文件以适应我的项目** — 填入 `CLAUDE.md` 中的占位符、根据需要调整规则，并提出特定于我用例的任何自定义建议。
 >
-> After that, use the plan-first workflow for all non-trivial tasks. Once I approve a plan, switch to contractor mode — coordinate everything autonomously and only come back to me when there's ambiguity or a decision to make.
+> 之后，对所有非平凡任务使用先规划工作流。一旦我批准计划，切换到承包商模式 — 自主协调所有内容，仅在有歧义或需要做出决定时回到我这里。
 >
-> Enter plan mode and start by adapting the workflow configuration for this project.
+> 进入规划模式并开始为该项目调整工作流配置。
 
-**What this does:** Claude reads all the configuration files, fills in your project name, institution, and preferences, then enters contractor mode — planning, implementing, reviewing, and verifying autonomously. You approve the plan and Claude handles the rest.
+**这样做的作用：** Claude 读取所有配置文件、填入你的项目名称、机构和偏好，然后进入承包商模式 — 自主地规划、实现、审查和验证。你批准计划，Claude 处理其余部分。
 
-**Prefer to configure manually?** See the [full guide](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-setup) for step-by-step manual setup instructions.
+**更喜欢手动配置？** 查看 [完整指南](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-setup) 获取分步手动设置说明。
 
 ---
 
-## How It Works
+## 工作原理
 
-### Contractor Mode
+### 承包商模式
 
-You describe a task. Claude plans the approach, implements it, runs specialized review agents, fixes issues, re-verifies, and scores against quality gates — all autonomously. You see a summary when the work meets quality standards. Say "just do it" and it auto-commits too.
+你描述一个任务。Claude 规划方法、实现它、运行专门的审查代理、修复问题、重新验证并针对质量门控评分 — 全部自主完成。当工作满足质量标准时，你会看到摘要。说"就这样做"，它也会自动提交。
 
-### Specialized Agents
+### 专门化代理
 
-Instead of one general-purpose reviewer, 10 focused agents each check one dimension:
+而不是一个通用审查者，10 个聚焦代理各检查一个维度：
 
-- **proofreader** — grammar/typos
-- **slide-auditor** — visual layout
-- **pedagogy-reviewer** — teaching quality
-- **r-reviewer** — R code quality
-- **domain-reviewer** — field-specific correctness (template — customize for your field)
+- **proofreader** — 语法/拼写错误
+- **slide-auditor** — 视觉布局
+- **pedagogy-reviewer** — 教学质量
+- **python-reviewer** — Python 代码质量
+- **domain-reviewer** — 领域特定正确性（模板 — 为你的领域自定义）
 
-Each is better at its narrow task than a generalist would be. The `/slide-excellence` skill runs them all in parallel.
+每个代理在其狭隘任务上比通才更出色。`/slide-excellence` 技能以并行方式运行它们所有。
 
-### Adversarial QA
+### 对抗性 QA
 
-Two agents work in opposition: the **critic** reads both Beamer and Quarto and produces harsh findings. The **fixer** implements exactly what the critic found. They loop until the critic says "APPROVED" (or 5 rounds max). This catches errors that single-pass review misses.
+两个代理相互对立工作：**批评者** 阅读 Beamer 和 Quarto 并产生严厉的发现。**修复者** 准确实现批评者发现的内容。他们循环直到批评者说"已批准"（或最多 5 轮）。这捕捉单次审查遗漏的错误。
 
-### Quality Gates
+### 质量门控
 
-Every file gets a score (0–100). Scores below threshold block the action:
-- **80** — commit threshold
-- **90** — PR threshold
-- **95** — excellence (aspirational)
-
----
-
-## The Guide
-
-For a comprehensive walkthrough, read the **[full guide](https://psantanna.com/claude-code-my-workflow/workflow-guide.html)** (or see the [source](guide/workflow-guide.qmd)).
-
-It covers:
-1. **Why This Workflow Exists** — the problem and the vision
-2. **Getting Started** — fork, paste one prompt, and Claude sets up the rest
-3. **The System in Action** — specialized agents, adversarial QA, quality scoring
-4. **The Building Blocks** — CLAUDE.md, rules, skills, agents, hooks, memory
-5. **Workflow Patterns** — lecture creation, translation, replication, multi-agent review, research exploration
-6. **Customizing for Your Domain** — creating your own reviewers and knowledge bases
+每个文件都有评分（0-100）。低于阈值的评分会阻止操作：
+- **80** — 提交阈值
+- **90** — PR 阈值
+- **95** — 卓越（志向性目标）
 
 ---
 
-## What's Included
+## 指南
+
+有关全面演练，请阅读 **[完整指南](https://psantanna.com/claude-code-my-workflow/workflow-guide.html)**（或查看 [源代码](guide/workflow-guide.qmd)）。
+
+它涵盖：
+1. **工作流存在的原因** — 问题和愿景
+2. **入门** — Fork、粘贴一个提示，Claude 处理其余部分
+3. **系统实际应用** — 专门代理、对抗性 QA、质量评分
+4. **构建块** — CLAUDE.md、规则、技能、代理、钩子、记忆
+5. **工作流模式** — 讲座创建、翻译、复制、多代理审查、研究探索
+6. **为你的领域定制** — 创建你自己的审查者和知识库
+
+---
+
+## 包含内容
 
 <details>
-<summary><strong>10 agents, 19 skills, 17 rules, 4 hooks</strong> (click to expand)</summary>
+<summary><strong>10 个代理、19 个技能、17 个规则、4 个钩子</strong>（点击展开）</summary>
 
-### Agents (`.claude/agents/`)
+### 代理（`.claude/agents/`）
 
-| Agent | What It Does |
+| 代理 | 功能 |
 |-------|-------------|
-| `proofreader` | Grammar, typos, overflow, consistency review |
-| `slide-auditor` | Visual layout audit (overflow, font consistency, spacing) |
-| `pedagogy-reviewer` | 13-pattern pedagogical review (narrative arc, notation density, pacing) |
-| `r-reviewer` | R code quality, reproducibility, and domain correctness |
-| `tikz-reviewer` | Merciless TikZ diagram visual critique |
-| `beamer-translator` | Beamer-to-Quarto translation specialist |
-| `quarto-critic` | Adversarial QA comparing Quarto against Beamer benchmark |
-| `quarto-fixer` | Implements fixes from the critic agent |
-| `verifier` | End-to-end task completion verification |
-| `domain-reviewer` | **Template** for your field-specific substance reviewer |
+| `proofreader` | 语法、拼写错误、溢出、一致性审查 |
+| `slide-auditor` | 视觉布局审计（溢出、字体一致性、间距） |
+| `pedagogy-reviewer` | 13 模式教学评审（叙述弧、符号密度、步调） |
+| `python-reviewer` | Python 代码质量、可重现性和领域正确性 |
+| `tikz-reviewer` | 严厉的 TikZ 图表视觉批评 |
+| `beamer-translator` | Beamer 转 Quarto 翻译专家 |
+| `quarto-critic` | 对抗性 QA，将 Quarto 与 Beamer 基准进行比较 |
+| `quarto-fixer` | 实现批评者代理的修复 |
+| `verifier` | 端到端任务完成验证 |
+| `domain-reviewer` | **模板** 用于你的领域特定物质审查者 |
 
-### Skills (`.claude/skills/`)
+### 技能（`.claude/skills/`）
 
-| Skill | What It Does |
+| 技能 | 功能 |
 |-------|-------------|
-| `/compile-latex` | 3-pass XeLaTeX compilation with bibtex |
-| `/deploy` | Render Quarto + sync to GitHub Pages |
-| `/extract-tikz` | TikZ diagrams to PDF to SVG pipeline |
-| `/proofread` | Launch proofreader on a file |
-| `/visual-audit` | Launch slide-auditor on a file |
-| `/pedagogy-review` | Launch pedagogy-reviewer on a file |
-| `/review-r` | Launch R code reviewer |
-| `/qa-quarto` | Adversarial critic-fixer loop (max 5 rounds) |
-| `/slide-excellence` | Combined multi-agent review |
-| `/translate-to-quarto` | Full 11-phase Beamer-to-Quarto translation |
-| `/validate-bib` | Cross-reference citations against bibliography |
-| `/devils-advocate` | Challenge design decisions before committing |
-| `/create-lecture` | Full lecture creation workflow |
-| `/commit` | Stage, commit, create PR, and merge to main |
-| `/lit-review` | Literature search, synthesis, and gap identification |
-| `/research-ideation` | Generate research questions and empirical strategies |
-| `/interview-me` | Interactive interview to formalize a research idea |
-| `/review-paper` | Manuscript review: structure, econometrics, referee objections |
-| `/data-analysis` | End-to-end R analysis with publication-ready output |
+| `/compile-latex` | 3 遍 XeLaTeX 编译及 bibtex |
+| `/deploy` | 渲染 Quarto + 同步到 GitHub Pages |
+| `/extract-tikz` | TikZ 图表转 PDF 再转 SVG 管道 |
+| `/proofread` | 启动校对员处理文件 |
+| `/visual-audit` | 启动幻灯片审计员处理文件 |
+| `/pedagogy-review` | 启动教学审查者处理文件 |
+| `/review-python` | 启动 Python 代码审查者 |
+| `/qa-quarto` | 对抗性批评者-修复者循环（最多 5 轮） |
+| `/slide-excellence` | 组合多代理审查 |
+| `/translate-to-quarto` | 完整的 11 阶段 Beamer 转 Quarto 翻译 |
+| `/validate-bib` | 对文献目录验证交叉引用 |
+| `/devils-advocate` | 在提交前质疑设计决策 |
+| `/create-lecture` | 完整讲座创建工作流 |
+| `/commit` | 暂存、提交、创建 PR 并合并到 main |
+| `/lit-review` | 文献搜索、综合和差距识别 |
+| `/research-ideation` | 生成研究问题和实证策略 |
+| `/interview-me` | 交互式采访以正式化研究思想 |
+| `/review-paper` | 稿件审查：结构、计量经济学、审稿人异议 |
+| `/data-analysis` | 端到端 Python 分析及出版就绪输出 |
 
-### Research Workflow
+### 研究工作流
 
-| Feature | What It Does |
+| 特性 | 功能 |
 |---------|-------------|
-| Exploration folder | Structured `explorations/` sandbox with graduate/archive lifecycle |
-| Fast-track workflow | 60/100 quality threshold for rapid prototyping |
-| Simplified orchestrator | implement → verify → score → done (no multi-round reviews) |
-| Enhanced session logging | Structured tables for changes, decisions, verification |
-| Merge-only reporting | Quality reports at merge time only |
-| Math line-length exception | Long lines acceptable for documented formulas |
-| Workflow quick reference | One-page cheat sheet at `.claude/WORKFLOW_QUICK_REF.md` |
+| 探索文件夹 | 带有研究生/存档生命周期的结构化 `explorations/` 沙箱 |
+| 快速轨道工作流 | 60/100 质量阈值用于快速原型设计 |
+| 简化编排器 | 实现 → 验证 → 评分 → 完成（无多轮审查） |
+| 增强会话日志 | 结构化的更改、决策、验证表 |
+| 仅合并报告 | 仅在合并时生成质量报告 |
+| 数学行长例外 | 长行对于有记录的公式可接受 |
+| 工作流快速参考 | `.claude/WORKFLOW_QUICK_REF.md` 中的单页速查表 |
 
-### Rules (`.claude/rules/`)
+### 规则（`.claude/rules/`）
 
-Rules use path-scoped loading: **always-on** rules load every session (~100 lines total); **path-scoped** rules load only when Claude works on matching files. Claude follows ~150 instructions reliably, so less is more.
+规则使用路径作用域加载：**始终启用** 规则每次会话加载（约 100 行总计）；**路径作用域** 规则仅在 Claude 处理匹配文件时加载。Claude 可靠地遵循约 150 条指令，所以越少越好。
 
-**Always-on** (no `paths:` frontmatter — load every session):
+**始终启用**（无 `paths:` frontmatter — 每次会话加载）：
 
-| Rule | What It Enforces |
+| 规则 | 强制执行内容 |
 |------|-----------------|
-| `plan-first-workflow` | Plan mode for non-trivial tasks + context preservation |
-| `orchestrator-protocol` | Contractor mode: implement → verify → review → fix → score |
-| `session-logging` | Three logging triggers: post-plan, incremental, end-of-session |
+| `plan-first-workflow` | 非平凡任务的规划模式 + 上下文保留 |
+| `orchestrator-protocol` | 承包商模式：实现 → 验证 → 审查 → 修复 → 评分 |
+| `session-logging` | 三个日志触发点：后规划、增量、会话结束 |
 
-**Path-scoped** (load only when working on matching files):
+**路径作用域**（仅在处理匹配文件时加载）：
 
-| Rule | Triggers On | What It Enforces |
+| 规则 | 触发于 | 强制执行内容 |
 |------|------------|-----------------|
-| `verification-protocol` | `.tex`, `.qmd`, `docs/` | Task completion checklist |
-| `single-source-of-truth` | `Figures/`, `.tex`, `.qmd` | No content duplication; Beamer is authoritative |
-| `quality-gates` | `.tex`, `.qmd`, `*.R` | 80/90/95 scoring + tolerance thresholds |
-| `r-code-conventions` | `*.R` | R coding standards + math line-length exception |
-| `tikz-visual-quality` | `.tex` | TikZ diagram visual standards |
-| `beamer-quarto-sync` | `.tex`, `.qmd` | Auto-sync Beamer edits to Quarto |
-| `pdf-processing` | `master_supporting_docs/` | Safe large PDF handling |
-| `proofreading-protocol` | `.tex`, `.qmd`, `quality_reports/` | Propose-first, then apply with approval |
-| `no-pause-beamer` | `.tex` | No overlay commands in Beamer |
-| `replication-protocol` | `*.R` | Replicate original results before extending |
-| `knowledge-base-template` | `.tex`, `.qmd`, `*.R` | Notation/application registry template |
-| `orchestrator-research` | `*.R`, `explorations/` | Simple orchestrator for research (no multi-round reviews) |
-| `exploration-folder-protocol` | `explorations/` | Structured sandbox for experimental work |
-| `exploration-fast-track` | `explorations/` | Lightweight exploration workflow (60/100 threshold) |
+| `verification-protocol` | `.tex`, `.qmd`, `docs/` | 任务完成清单 |
+| `single-source-of-truth` | `Figures/`, `.tex`, `.qmd` | 无内容重复；Beamer 是权威 |
+| `quality-gates` | `.tex`, `.qmd`, `*.py` | 80/90/95 评分 + 容差阈值 |
+| `python-code-conventions` | `*.py` | Python 编码标准 + 数学行长例外 |
+| `tikz-visual-quality` | `.tex` | TikZ 图表视觉标准 |
+| `beamer-quarto-sync` | `.tex`, `.qmd` | 自动同步 Beamer 编辑到 Quarto |
+| `pdf-processing` | `master_supporting_docs/` | 安全的大 PDF 处理 |
+| `proofreading-protocol` | `.tex`, `.qmd`, `quality_reports/` | 提议-首先，然后在批准后应用 |
+| `no-pause-beamer` | `.tex` | Beamer 中无覆盖命令 |
+| `replication-protocol` | `*.py` | 复制原始结果后再扩展 |
+| `knowledge-base-template` | `.tex`, `.qmd`, `*.py` | 符号/应用注册表模板 |
+| `orchestrator-research` | `*.py`, `explorations/` | 简化研究编排器（无多轮审查） |
+| `exploration-folder-protocol` | `explorations/` | 实验工作的结构化沙箱 |
+| `exploration-fast-track` | `explorations/` | 轻量级探索工作流（60/100 阈值） |
 
-**Templates** (`templates/`) — reference formats for session logs, quality reports, and exploration READMEs. Not auto-loaded.
+**模板**（`templates/`） — 会话日志、质量报告和探索 README 的参考格式。不会自动加载。
 
 </details>
 
 ---
 
-## Prerequisites
+## 前置条件
 
-| Tool | Required For | Install |
+| 工具 | 需要用于 | 安装 |
 |------|-------------|---------|
-| [Claude Code](https://code.claude.com/docs/en/overview) | Everything | `npm install -g @anthropic-ai/claude-code` |
-| XeLaTeX | LaTeX compilation | [TeX Live](https://tug.org/texlive/) or [MacTeX](https://tug.org/mactex/) |
-| [Quarto](https://quarto.org) | Web slides | [quarto.org/docs/get-started](https://quarto.org/docs/get-started/) |
-| R | Figures & analysis | [r-project.org](https://www.r-project.org/) |
-| pdf2svg | TikZ to SVG | `brew install pdf2svg` (macOS) |
-| [gh CLI](https://cli.github.com/) | PR workflow | `brew install gh` (macOS) |
+| [Claude Code](https://code.claude.com/docs/en/overview) | 所有 | `npm install -g @anthropic-ai/claude-code` |
+| XeLaTeX | LaTeX 编译 | [TeX Live](https://tug.org/texlive/) 或 [MacTeX](https://tug.org/mactex/) |
+| [Quarto](https://quarto.org) | 网络幻灯片 | [quarto.org/docs/get-started](https://quarto.org/docs/get-started/) |
+| Python | 图形和分析 | [python.org](https://www.python.org/) |
+| NanoBanana | 科研绘图（可选） | `pip install nano-banana` |
+| pdf2svg | TikZ 转 SVG | `brew install pdf2svg` (macOS) |
+| [gh CLI](https://cli.github.com/) | PR 工作流 | `brew install gh` (macOS) |
 
-Not all tools are needed — install only what your project uses. Claude Code is the only hard requirement.
-
----
-
-## Adapting for Your Field
-
-1. **Fill in the knowledge base** (`.claude/rules/knowledge-base-template.md`) with your notation, applications, and design principles
-2. **Customize the domain reviewer** (`.claude/agents/domain-reviewer.md`) with review lenses specific to your field
-3. **Update the color palette** in your Quarto theme SCSS file — change the color variables at the top
-4. **Add field-specific R pitfalls** to `.claude/rules/r-code-conventions.md`
-5. **Fill in the lecture mapping** in `.claude/rules/beamer-quarto-sync.md`
-6. **Customize the workflow quick reference** (`.claude/WORKFLOW_QUICK_REF.md`) with your non-negotiables and preferences
-7. **Set up the exploration folder** (`explorations/`) for experimental work
+并非所有工具都是必需的 — 仅安装你的项目使用的工具。Claude Code 是唯一的硬性要求。
 
 ---
 
-## Additional Resources
+## 为你的领域调整
 
-- [Claude Code Documentation](https://code.claude.com/docs/en/overview)
-- [Writing a Good CLAUDE.md](https://code.claude.com/docs/en/memory) — official guidance on project memory
+1. **填写知识库**（`.claude/rules/knowledge-base-template.md`）— 添加你的符号、应用和设计原则
+2. **自定义领域审查者**（`.claude/agents/domain-reviewer.md`）— 使用特定于你的领域的审查视角
+3. **更新调色板** — 在你的 Quarto 主题 SCSS 文件中改变顶部的颜色变量
+4. **添加领域特定的 Python 陷阱** — 到 `.claude/rules/python-code-conventions.md`
+5. **填写讲座映射** — 在 `.claude/rules/beamer-quarto-sync.md` 中
+6. **自定义工作流快速参考** — 使用 `.claude/WORKFLOW_QUICK_REF.md` 中的你的不可协商原则和偏好
+7. **设置探索文件夹** — 用于实验工作的 (`explorations/`)
 
 ---
 
-## Origin
+## 其他资源
 
-This infrastructure was extracted from **Econ 730: Causal Panel Data** at Emory University, developed by Pedro Sant'Anna using Claude Code over 6+ sessions. The course produced 6 complete PhD lecture decks with 800+ slides, interactive Quarto versions with plotly charts, and full R replication packages — all managed through this multi-agent workflow.
+- [Claude Code 文档](https://code.claude.com/docs/en/overview)
+- [编写优秀的 CLAUDE.md](https://code.claude.com/docs/en/memory) — 关于项目记忆的官方指南
 
 ---
 
-## License
+## 来源
 
-MIT License. Use freely for teaching, research, or any academic purpose.
+该基础设施从埃默里大学的 **Econ 730：因果面板数据** 课程中提取，由 Pedro Sant'Anna 使用 Claude Code 在 6+ 个会话中开发。该课程产生了 6 个完整的博士讲座套装，包含 800+ 幻灯片、包含 plotly 图表的交互式 Quarto 版本以及完整的 Python 复制包 — 所有这些都通过此多代理工作流进行管理。
+
+---
+
+## 许可证
+
+MIT 许可证。自由用于教学、研究或任何学术目的。
