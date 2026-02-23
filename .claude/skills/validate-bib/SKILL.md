@@ -13,9 +13,8 @@ allowed-tools: ["Read", "Grep", "Glob"]
 
 1. **读取参考文献文件**并提取所有引文密钥
 
-2. **扫描所有讲义文件中的引文密钥：**
+2. **扫描所有学术文件中的引文密钥：**
    - `.tex` 文件：查找 `\cite{`、`\citet{`、`\citep{`、`\citeauthor{`、`\citeyear{`
-   - `.qmd` 文件：查找 `@key`、`[@key]`、`[@key1; @key2]`
    - 提取所有使用的唯一引文密钥
 
 3. **交叉参考：**
@@ -37,8 +36,8 @@ allowed-tools: ["Read", "Grep", "Glob"]
 
 ## 要扫描的文件：
 ```
+Papers/*.tex
 Slides/*.tex
-Quarto/*.qmd
 ```
 
 ## 参考文献位置：

@@ -10,7 +10,7 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
 
 生成一份深入、建设性的学术手稿审查报告——类似于顶级期刊审稿人撰写的报告。
 
-**输入：** `$ARGUMENTS` — 论文路径（.tex、.pdf 或 .qmd），或 `master_supporting_docs/` 中的文件名。
+**输入：** `$ARGUMENTS` — 论文路径（.tex 或 .pdf），或 `master_supporting_docs/` 中的文件名。
 
 ---
 
