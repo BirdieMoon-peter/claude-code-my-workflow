@@ -4,34 +4,34 @@ paths:
   - "Quarto/**/*.qmd"
 ---
 
-# Beamer → Quarto Auto-Sync Rule (MANDATORY)
+# Beamer → Quarto 自动同步规则 (强制)
 
-**Every edit to a Beamer `.tex` file MUST be immediately synced to the corresponding Quarto `.qmd` file — automatically, without the user asking.** This is non-negotiable.
+**每次编辑 Beamer `.tex` 文件必须立即同步到对应的 Quarto `.qmd` 文件 — 自动进行,无需用户询问。** 这是强制的。
 
-## The Rule
+## 规则
 
-When you modify a Beamer `.tex` file, you MUST also apply the equivalent change to the Quarto `.qmd` (if it exists) **in the same task**, before reporting completion. Do NOT wait to be asked. Do NOT just "flag the drift." Just do it.
+修改 Beamer `.tex` 文件时,你必须也对 Quarto `.qmd` (如果存在) 应用等效更改 **在同一任务中**,然后报告完成。不要等待被要求。不要只是"标记偏差"。就做它。
 
-## Lecture Mapping
+## 讲座映射
 
-<!-- Customize this table for your lectures -->
-| Lecture | Beamer | Quarto |
+<!-- 为你的讲座自定义此表 -->
+| 讲座 | Beamer | Quarto |
 |---------|--------|--------|
 | 1 | `Slides/Lecture1_Topic.tex` | `Quarto/Lecture1_Topic.qmd` |
 | 2 | `Slides/Lecture2_Topic.tex` | `Quarto/Lecture2_Topic.qmd` |
-<!-- Add rows as you create lectures -->
+<!-- 创建讲座时添加行 -->
 
-## Workflow (Every Time)
+## 工作流 (每次)
 
-1. Apply fix to Beamer `.tex`
-2. **Immediately** apply equivalent fix to Quarto `.qmd`
-3. Compile Beamer (3-pass xelatex)
-4. Render Quarto (`./scripts/sync_to_docs.sh LectureN`)
-5. Only then report task complete
+1. 在 Beamer `.tex` 中应用修复
+2. **立即**在 Quarto `.qmd` 中应用等效修复
+3. 编译 Beamer (3-pass xelatex)
+4. 渲染 Quarto (`./scripts/sync_to_docs.sh LectureN`)
+5. 然后报告任务完成
 
-## LaTeX → Quarto Translation Reference
+## LaTeX → Quarto 转换参考
 
-| Beamer | Quarto Equivalent |
+| Beamer | Quarto 等效 |
 | ------ | ----------------- |
 | `\muted{text}` | `[text]{style="color: #525252;"}` |
 | `\key{text}` | `[**text**]{.emorygold}` |
@@ -40,21 +40,21 @@ When you modify a Beamer `.tex` file, you MUST also apply the equivalent change 
 | `\item text` | `- text` |
 | `\begin{highlightbox}` | `::: {.highlightbox}` |
 | `\begin{methodbox}` | `::: {.methodbox}` |
-| `$formula$` | `$formula$` (same) |
+| `$formula$` | `$formula$` (相同) |
 
-## When NOT to Sync
+## 何时不同步
 
-- Quarto file doesn't exist yet
-- Change is LaTeX-only infrastructure (preamble, theme files)
-- Explicitly told to skip Quarto sync
+- Quarto 文件尚不存在
+- 更改是仅 LaTeX 基础设施 (preamble、theme 文件)
+- 明确要求跳过 Quarto 同步
 
-## Enforcement
+## 执行
 
-Before marking any Beamer editing task as complete, check:
-> "Did I also update the Quarto file?"
+标记任何 Beamer 编辑任务完成前,检查:
+> "我也更新了 Quarto 文件吗?"
 
-If the answer is no and a Quarto file exists, **you are NOT done.**
+如果答案是否且 Quarto 文件存在,**你没有完成。**
 
-## When to Update This Table
+## 何时更新此表
 
-After creating a new Quarto translation, add it to the mapping table above.
+创建新 Quarto 翻译后,将其添加到上面的映射表。

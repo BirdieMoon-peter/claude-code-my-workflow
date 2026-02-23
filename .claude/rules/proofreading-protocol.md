@@ -5,43 +5,43 @@ paths:
   - "quality_reports/**"
 ---
 
-# Proofreading Agent Protocol (MANDATORY)
+# 校对代理协议 (强制)
 
-**Every lecture file MUST be reviewed before any commit or PR.**
+**每个讲座文件在任何提交或 PR 前必须被审查。**
 
-**CRITICAL RULE: The agent must NEVER apply changes directly. It proposes all changes for review first.**
+**关键规则: 代理绝不能直接应用更改。它首先为审查提议所有更改。**
 
-## What the Agent Checks
+## 代理检查内容
 
-1. **Grammar** -- subject-verb agreement, missing articles, wrong prepositions
-2. **Typos** -- misspellings, search-and-replace corruption, duplicated words
-3. **Overflow** -- overfull hbox (Beamer), content exceeding slide boundaries (Quarto)
-4. **Consistency** -- notation, citation style (`\citet` vs `\citep`, `[@key]`), terminology
-5. **Academic quality** -- informal abbreviations, missing words, awkward phrasing
+1. **语法** -- 主谓一致、缺少冠词、错误的介词
+2. **拼写错误** -- 拼写错误、搜索替换损坏、重复单词
+3. **溢出** -- overfull hbox (Beamer)、内容超过幻灯片边界 (Quarto)
+4. **一致性** -- 记号、引用风格 (`\citet` vs `\citep`、`[@key]`)、术语
+5. **学术质量** -- 非正式缩写、缺少单词、尴尬的措辞
 
-## Three-Phase Workflow
+## 三阶段工作流
 
-### Phase 1: Review & Propose (NO EDITS)
+### 阶段 1: 审查和提议 (无编辑)
 
-Each agent:
-1. Reads the entire file
-2. Produces a **report** with every proposed change:
-   - Location (line number or slide title)
-   - Current text
-   - Proposed fix
-   - Category (grammar / typo / overflow / consistency)
-3. Saves report to `quality_reports/` (e.g., `quality_reports/LectureN_Topic_report.md`)
-4. **Does NOT modify any source files**
+每个代理:
+1. 读取整个文件
+2. 生成**报告**包含每个提议的更改:
+   - 位置 (行号或幻灯片标题)
+   - 当前文本
+   - 提议修复
+   - 类别 (语法/拼写错误/溢出/一致性)
+3. 保存报告到 `quality_reports/` (例如 `quality_reports/LectureN_Topic_report.md`)
+4. **不修改任何源文件**
 
-### Phase 2: Review & Approve
+### 阶段 2: 审查和批准
 
-The user reviews the proposed changes:
-- Accepts all, accepts selectively, or requests modifications
-- **Only after explicit approval** does the agent proceed
+用户审查提议的更改:
+- 全部接受、选择性接受或请求修改
+- **仅在明确批准后**代理继续
 
-### Phase 3: Apply Fixes
+### 阶段 3: 应用修复
 
-Apply only approved changes:
-- Use Edit tool; use `replace_all: true` for issues with multiple instances
-- Verify each edit succeeded
-- Report completion summary
+仅应用批准的更改:
+- 使用编辑工具;对多个实例问题使用 `replace_all: true`
+- 验证每个编辑成功
+- 报告完成摘要

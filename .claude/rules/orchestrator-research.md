@@ -1,13 +1,13 @@
 ---
 paths:
-  - "scripts/**/*.R"
+  - "scripts/**/*.py"
   - "explorations/**"
-  - "Figures/**/*.R"
+  - "Figures/**/*.py"
 ---
 
 # Research Project Orchestrator (Simplified)
 
-**For R scripts, simulations, and data analysis** -- use this simplified loop instead of the full multi-agent orchestrator.
+**对于Python脚本、仿真和数据分析** -- 使用这个简化的循环而不是完整的多代理编排器。
 
 ## The Simple Loop
 
@@ -17,8 +17,8 @@ Plan approved → orchestrator activates
   Step 1: IMPLEMENT — Execute plan steps
   │
   Step 2: VERIFY — Run code, check outputs
-  │         R scripts: Rscript runs without error
-  │         Simulations: set.seed reproducibility
+  │         Python脚本: 无错误运行
+  │         Simulations: 随机种子 reproducibility
   │         Plots: PDF/PNG created, correct format
   │         If verification fails → fix → re-verify
   │
@@ -34,9 +34,9 @@ Plan approved → orchestrator activates
 ## Verification Checklist
 
 - [ ] Script runs without errors
-- [ ] All packages loaded at top
+- [ ] All packages imported at top
 - [ ] No hardcoded absolute paths
-- [ ] `set.seed()` once at top if stochastic
+- [ ] `np.random.seed()` once at top if stochastic
 - [ ] Output files created at expected paths
 - [ ] Tolerance checks pass (if applicable)
 - [ ] Quality score >= 80

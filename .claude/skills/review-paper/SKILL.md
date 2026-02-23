@@ -1,155 +1,155 @@
 ---
 name: review-paper
-description: Comprehensive manuscript review covering argument structure, econometric specification, citation completeness, and potential referee objections
+description: 全面的手稿审查，涵盖论证结构、计量经济学规范、引用完整性以及潜在的审稿人异议
 disable-model-invocation: true
 argument-hint: "[paper filename in master_supporting_docs/ or path to .tex/.pdf]"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
 ---
 
-# Manuscript Review
+# 手稿审查
 
-Produce a thorough, constructive review of an academic manuscript — the kind of report a top-journal referee would write.
+生成一份深入、建设性的学术手稿审查报告——类似于顶级期刊审稿人撰写的报告。
 
-**Input:** `$ARGUMENTS` — path to a paper (.tex, .pdf, or .qmd), or a filename in `master_supporting_docs/`.
+**输入：** `$ARGUMENTS` — 论文路径（.tex、.pdf 或 .qmd），或 `master_supporting_docs/` 中的文件名。
 
 ---
 
-## Steps
+## 步骤
 
-1. **Locate and read the manuscript.** Check:
-   - Direct path from `$ARGUMENTS`
+1. **定位并阅读手稿。** 检查：
+   - 来自 `$ARGUMENTS` 的直接路径
    - `master_supporting_docs/supporting_papers/$ARGUMENTS`
-   - Glob for partial matches
+   - 使用 Glob 进行部分匹配
 
-2. **Read the full paper** end-to-end. For long PDFs, read in chunks (5 pages at a time).
+2. **从头到尾阅读整篇论文**。对于长篇 PDF，分块阅读（一次 5 页）。
 
-3. **Evaluate across 6 dimensions** (see below).
+3. **跨 6 个维度进行评估**（见下文）。
 
-4. **Generate 3-5 "referee objections"** — the tough questions a top referee would ask.
+4. **生成 3-5 个"审稿人异议"** — 顶级审稿人会提出的严峻问题。
 
-5. **Produce the review report.**
+5. **生成审查报告。**
 
-6. **Save to** `quality_reports/paper_review_[sanitized_name].md`
-
----
-
-## Review Dimensions
-
-### 1. Argument Structure
-- Is the research question clearly stated?
-- Does the introduction motivate the question effectively?
-- Is the logical flow sound (question → method → results → conclusion)?
-- Are the conclusions supported by the evidence?
-- Are limitations acknowledged?
-
-### 2. Identification Strategy
-- Is the causal claim credible?
-- What are the key identifying assumptions? Are they stated explicitly?
-- Are there threats to identification (omitted variables, reverse causality, measurement error)?
-- Are robustness checks adequate?
-- Is the estimator appropriate for the research design?
-
-### 3. Econometric Specification
-- Correct standard errors (clustered? robust? bootstrap?)?
-- Appropriate functional form?
-- Sample selection issues?
-- Multiple testing concerns?
-- Are point estimates economically meaningful (not just statistically significant)?
-
-### 4. Literature Positioning
-- Are the key papers cited?
-- Is prior work characterized accurately?
-- Is the contribution clearly differentiated from existing work?
-- Any missing citations that a referee would flag?
-
-### 5. Writing Quality
-- Clarity and concision
-- Academic tone
-- Consistent notation throughout
-- Abstract effectively summarizes the paper
-- Tables and figures are self-contained (clear labels, notes, sources)
-
-### 6. Presentation
-- Are tables and figures well-designed?
-- Is notation consistent throughout?
-- Are there any typos, grammatical errors, or formatting issues?
-- Is the paper the right length for the contribution?
+6. **保存到** `quality_reports/paper_review_[sanitized_name].md`
 
 ---
 
-## Output Format
+## 审查维度
+
+### 1. 论证结构
+- 研究问题是否清晰陈述？
+- 引言是否有效地激发了问题？
+- 逻辑流程是否合理（问题 → 方法 → 结果 → 结论）？
+- 结论是否有证据支持？
+- 是否承认了局限性？
+
+### 2. 识别策略
+- 因果主张是否可信？
+- 关键识别假设是什么？是否明确陈述？
+- 是否存在识别威胁（遗漏变量、反向因果关系、测量误差）？
+- 稳健性检查是否充分？
+- 估计量是否适合研究设计？
+
+### 3. 计量经济学规范
+- 标准误是否正确（聚类？稳健？自助法？）？
+- 函数形式是否适当？
+- 是否存在样本选择问题？
+- 是否存在多重检验问题？
+- 点估计是否具有经济意义（不仅仅是统计显著）？
+
+### 4. 文献定位
+- 是否引用了关键论文？
+- 先前工作的描述是否准确？
+- 贡献是否与现有工作明确区分？
+- 是否有审稿人会标记的缺失引用？
+
+### 5. 写作质量
+- 清晰性和简洁性
+- 学术语调
+- 符号表示的一致性
+- 摘要是否有效地总结了论文
+- 表格和图表是否自成一体（清晰的标签、注释、来源）
+
+### 6. 呈现
+- 表格和图表设计是否良好？
+- 符号表示是否贯穿始终？
+- 是否存在任何拼写错误、语法错误或格式问题？
+- 论文长度是否与贡献相匹配？
+
+---
+
+## 输出格式
 
 ```markdown
-# Manuscript Review: [Paper Title]
+# 手稿审查：[Paper Title]
 
-**Date:** [YYYY-MM-DD]
-**Reviewer:** review-paper skill
-**File:** [path to manuscript]
+**日期：** [YYYY-MM-DD]
+**审查人：** review-paper skill
+**文件：** [path to manuscript]
 
-## Summary Assessment
+## 总体评估
 
-**Overall recommendation:** [Strong Accept / Accept / Revise & Resubmit / Reject]
+**总体建议：** [Strong Accept / Accept / Revise & Resubmit / Reject]
 
-[2-3 paragraph summary: main contribution, strengths, and key concerns]
+[2-3 段总结：主要贡献、优势和关键问题]
 
-## Strengths
+## 优势
 
-1. [Strength 1]
-2. [Strength 2]
-3. [Strength 3]
+1. [优势 1]
+2. [优势 2]
+3. [优势 3]
 
-## Major Concerns
+## 主要问题
 
-### MC1: [Title]
-- **Dimension:** [Identification / Econometrics / Argument / Literature / Writing / Presentation]
-- **Issue:** [Specific description]
-- **Suggestion:** [How to address it]
-- **Location:** [Section/page/table if applicable]
+### MC1: [标题]
+- **维度：** [Identification / Econometrics / Argument / Literature / Writing / Presentation]
+- **问题：** [具体描述]
+- **建议：** [如何解决]
+- **位置：** [章节/页码/表格（如适用）]
 
-[Repeat for each major concern]
+[重复每个主要问题]
 
-## Minor Concerns
+## 次要问题
 
-### mc1: [Title]
-- **Issue:** [Description]
-- **Suggestion:** [Fix]
+### mc1: [标题]
+- **问题：** [描述]
+- **建议：** [修复方法]
 
-[Repeat]
+[重复]
 
-## Referee Objections
+## 审稿人异议
 
-These are the tough questions a top referee would likely raise:
+以下是顶级审稿人可能会提出的严峻问题：
 
-### RO1: [Question]
-**Why it matters:** [Why this could be fatal]
-**How to address it:** [Suggested response or additional analysis]
+### RO1: [问题]
+**为什么重要：** [为什么这可能是致命的]
+**如何解决：** [建议的回应或额外分析]
 
-[Repeat for 3-5 objections]
+[重复 3-5 个异议]
 
-## Specific Comments
+## 具体评论
 
-[Line-by-line or section-by-section comments, if any]
+[逐行或逐节评论（如有）]
 
-## Summary Statistics
+## 汇总统计
 
-| Dimension | Rating (1-5) |
+| 维度 | 评分 (1-5) |
 |-----------|-------------|
-| Argument Structure | [N] |
-| Identification | [N] |
-| Econometrics | [N] |
-| Literature | [N] |
-| Writing | [N] |
-| Presentation | [N] |
-| **Overall** | **[N]** |
+| 论证结构 | [N] |
+| 识别策略 | [N] |
+| 计量经济学 | [N] |
+| 文献定位 | [N] |
+| 写作质量 | [N] |
+| 呈现 | [N] |
+| **总体** | **[N]** |
 ```
 
 ---
 
-## Principles
+## 原则
 
-- **Be constructive.** Every criticism should come with a suggestion.
-- **Be specific.** Reference exact sections, equations, tables.
-- **Think like a referee at a top-5 journal.** What would make them reject?
-- **Distinguish fatal flaws from minor issues.** Not everything is equally important.
-- **Acknowledge what's done well.** Good research deserves recognition.
-- **Do NOT fabricate details.** If you can't read a section clearly, say so.
+- **建设性。** 每个批评都应该附带建议。
+- **具体化。** 引用确切的章节、方程式、表格。
+- **像顶级期刊的审稿人一样思考。** 什么会让他们拒稿？
+- **区分致命缺陷和次要问题。** 并非所有事情都同等重要。
+- **承认做得好的地方。** 好的研究值得认可。
+- **不要编造细节。** 如果您无法清晰地阅读某个部分，请说明。

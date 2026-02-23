@@ -1,22 +1,22 @@
 ---
 paths:
-  - "scripts/**/*.R"
-  - "Figures/**/*.R"
+  - "scripts/**/*.py"
+  - "Figures/**/*.py"
 ---
 
 # Replication-First Protocol
 
-**Core principle:** Replicate original results to the dot BEFORE extending.
+**核心原则:** 在扩展之前，先将原始结果准确复制。
 
 ---
 
 ## Phase 1: Inventory & Baseline
 
-Before writing any R code:
+在编写任何Python代码之前：
 
-- [ ] Read the paper's replication README
-- [ ] Inventory replication package: language, data files, scripts, outputs
-- [ ] Record gold standard numbers from the paper:
+- [ ] 阅读论文的复制说明 (README)
+- [ ] 清点复制包：编程语言、数据文件、脚本、输出
+- [ ] 记录论文中的黄金标准数字：
 
 ```markdown
 ## Replication Targets: [Paper Author (Year)]
@@ -26,27 +26,27 @@ Before writing any R code:
 | Main ATT | Table 2, Col 3 | -1.632 | (0.584) | Primary specification |
 ```
 
-- [ ] Store targets in `quality_reports/LectureNN_replication_targets.md` or as RDS
+- [ ] 将目标存储在 `quality_reports/LectureNN_replication_targets.md` 或作为 pickle/JSON
 
 ---
 
 ## Phase 2: Translate & Execute
 
-- [ ] Follow `r-code-conventions.md` for all R coding standards
-- [ ] Translate line-by-line initially -- don't "improve" during replication
-- [ ] Match original specification exactly (covariates, sample, clustering, SE computation)
-- [ ] Save all intermediate results as RDS
+- [ ] 遵循 `python-code-conventions.md` 规范
+- [ ] 逐行初步翻译 -- 复制期间不要"改进"
+- [ ] 完全匹配原始规范（协变量、样本、聚类、SE计算）
+- [ ] 将所有中间结果保存为 pickle/JSON
 
-### Stata to R Translation Pitfalls
+### Stata to Python Translation Pitfalls
 
 <!-- Customize: Add pitfalls specific to your field -->
 
-| Stata | R | Trap |
-|-------|---|------|
-| `reg y x, cluster(id)` | `feols(y ~ x, cluster = ~id)` | Stata clusters df-adjust differently from some R packages |
-| `areg y x, absorb(id)` | `feols(y ~ x \| id)` | Check demeaning method matches |
-| `probit` for PS | `glm(family=binomial(link="probit"))` | R default logit != Stata default in some commands |
-| `bootstrap, reps(999)` | Depends on method | Match seed, reps, and bootstrap type exactly |
+| Stata | Python | Trap |
+|-------|--------|------|
+| `reg y x, cluster(id)` | `from linearmodels.panel import FirstDifferenceOLS` or `statsmodels.formula.api.ols()` with `cov_type='cluster'` | Stata and Python compute clustered SE differently; verify degrees of freedom adjustment |
+| `areg y x, absorb(id)` | `from linearmodels.panel import FirstDifferenceOLS` or use `pd.get_dummies()` for fixed effects | Demeaning method must match (Frisch-Waugh-Lovell vs. within transformation) |
+| `probit` for PS | `from statsmodels.genmod.generalized_linear_model import GLM; GLM(..., family=sm.families.Binomial(link=sm.genmod.cov_struct.Probit()))` | Python default link != Stata default in some cases |
+| `bootstrap, reps(999)` | `from scipy.stats import bootstrap` or manual resampling | Match seed, reps, and bootstrap type (percentile vs. bias-corrected) exactly |
 
 ---
 
@@ -64,17 +64,17 @@ Before writing any R code:
 
 ### If Mismatch
 
-**Do NOT proceed to extensions.** Isolate which step introduces the difference, check common causes (sample size, SE computation, default options, variable definitions), and document the investigation even if unresolved.
+**不要继续扩展。** 隔离引入差异的步骤，检查常见原因（样本大小、SE计算、默认选项、变量定义），并记录调查过程，即使未解决。
 
 ### Replication Report
 
-Save to `quality_reports/LectureNN_replication_report.md`:
+保存到 `quality_reports/LectureNN_replication_report.md`:
 
 ```markdown
 # Replication Report: [Paper Author (Year)]
 **Date:** [YYYY-MM-DD]
 **Original language:** [Stata/R/etc.]
-**R translation:** [script path]
+**Python translation:** [script path]
 
 ## Summary
 - **Targets checked / Passed / Failed:** N / M / K
@@ -83,21 +83,20 @@ Save to `quality_reports/LectureNN_replication_report.md`:
 ## Results Comparison
 
 | Target | Paper | Ours | Diff | Status |
-|--------|-------|------|------|--------|
 
 ## Discrepancies (if any)
 - **Target:** X | **Investigation:** ... | **Resolution:** ...
 
 ## Environment
-- R version, key packages (with versions), data source
+- Python version, key packages (with versions), data source
 ```
 
 ---
 
 ## Phase 4: Only Then Extend
 
-After replication is verified (all targets PASS):
+复制验证后（所有目标通过）：
 
-- [ ] Commit replication script: "Replicate [Paper] Table X -- all targets match"
-- [ ] Now extend with course-specific modifications (different estimators, new figures, etc.)
-- [ ] Each extension builds on the verified baseline
+- [ ] 提交复制脚本: "Replicate [Paper] Table X -- all targets match"
+- [ ] 现在用课程特定的修改进行扩展（不同的估计器、新图表等）
+- [ ] 每个扩展都建立在已验证的基线之上

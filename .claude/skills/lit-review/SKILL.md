@@ -1,90 +1,90 @@
 ---
 name: lit-review
-description: Structured literature search and synthesis with citation extraction and gap identification
+description: 结构化文献搜索与综合，包括引用提取和研究空白识别
 disable-model-invocation: true
-argument-hint: "[topic, paper title, or research question]"
+argument-hint: "[主题、论文标题或研究问题]"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "WebSearch", "WebFetch"]
 ---
 
-# Literature Review
+# 文献审查
 
-Conduct a structured literature search and synthesis on the given topic.
+对给定主题进行结构化文献搜索和综合。
 
-**Input:** `$ARGUMENTS` — a topic, paper title, research question, or phenomenon to investigate.
-
----
-
-## Steps
-
-1. **Parse the topic** from `$ARGUMENTS`. If a specific paper is named, use it as the anchor.
-
-2. **Search for related work** using available tools:
-   - Check `master_supporting_docs/supporting_papers/` for uploaded papers
-   - Use `WebSearch` to find recent publications (if available)
-   - Use `WebFetch` to access working paper repositories (if available)
-   - Read any existing `.bib` file for papers already in the project
-
-3. **Organize findings** into these categories:
-   - **Theoretical contributions** — models, frameworks, mechanisms
-   - **Empirical findings** — key results, effect sizes, data sources
-   - **Methodological innovations** — new estimators, identification strategies, inference methods
-   - **Open debates** — unresolved disagreements in the literature
-
-4. **Identify gaps and opportunities:**
-   - What questions remain unanswered?
-   - What data or methods could address them?
-   - Where do findings conflict?
-
-5. **Extract citations** in BibTeX format for all papers discussed.
-
-6. **Save the report** to `quality_reports/lit_review_[sanitized_topic].md`
+**输入：** `$ARGUMENTS` — 主题、论文标题、研究问题或需要调查的现象。
 
 ---
 
-## Output Format
+## 步骤
+
+1. **从 `$ARGUMENTS` 解析主题**。如果指定了特定论文，将其作为锚点。
+
+2. **使用可用工具搜索相关工作：**
+   - 检查 `master_supporting_docs/supporting_papers/` 中已上传的论文
+   - 使用 `WebSearch` 查找近期出版物（如果可用）
+   - 使用 `WebFetch` 访问工作论文库（如果可用）
+   - 读取项目中现有的 `.bib` 文件以查找已有论文
+
+3. **将发现组织到以下类别：**
+   - **理论贡献** — 模型、框架、机制
+   - **实证发现** — 关键结果、效应量、数据来源
+   - **方法论创新** — 新估计器、识别策略、推断方法
+   - **开放性争论** — 文献中未解决的分歧
+
+4. **识别研究空白和机会：**
+   - 哪些问题仍未得到解答？
+   - 哪些数据或方法可以解决这些问题？
+   - 哪些发现存在冲突？
+
+5. **以 BibTeX 格式提取所有讨论论文的引用**。
+
+6. **将报告保存到** `quality_reports/lit_review_[sanitized_topic].md`
+
+---
+
+## 输出格式
 
 ```markdown
-# Literature Review: [Topic]
+# 文献审查：[主题]
 
-**Date:** [YYYY-MM-DD]
-**Query:** [Original query from user]
+**日期：** [YYYY-MM-DD]
+**查询：** [用户的原始查询]
 
-## Summary
+## 摘要
 
-[2-3 paragraph overview of the state of the literature]
+[2-3段关于文献现状的概述]
 
-## Key Papers
+## 关键论文
 
-### [Author (Year)] — [Short Title]
-- **Main contribution:** [1-2 sentences]
-- **Method:** [Identification strategy / data]
-- **Key finding:** [Result with effect size if available]
-- **Relevance:** [Why it matters for our research]
+### [作者 (年份)] — [简短标题]
+- **主要贡献：** [1-2句话]
+- **方法：** [识别策略/数据]
+- **关键发现：** [结果及效应量（如果有）]
+- **相关性：** [对我们研究的重要性]
 
-[Repeat for 5-15 papers, ordered by relevance]
+[对5-15篇论文重复此格式，按相关性排序]
 
-## Thematic Organization
+## 主题组织
 
-### Theoretical Contributions
-[Grouped discussion]
+### 理论贡献
+[分组讨论]
 
-### Empirical Findings
-[Grouped discussion with comparison across studies]
+### 实证发现
+[跨研究比较的分组讨论]
 
-### Methodological Innovations
-[Methods relevant to the topic]
+### 方法论创新
+[与主题相关的方法]
 
-## Gaps and Opportunities
+## 研究空白与机会
 
-1. [Gap 1 — what's missing and why it matters]
-2. [Gap 2]
-3. [Gap 3]
+1. [空白1 — 缺失内容及其重要性]
+2. [空白2]
+3. [空白3]
 
-## Suggested Next Steps
+## 建议的后续步骤
 
-- [Concrete actions: papers to read, data to obtain, methods to consider]
+- [具体行动：需要阅读的论文、需要获取的数据、需要考虑的方法]
 
-## BibTeX Entries
+## BibTeX 条目
 
 ```bibtex
 @article{...}
@@ -93,9 +93,9 @@ Conduct a structured literature search and synthesis on the given topic.
 
 ---
 
-## Important
+## 重要提示
 
-- **Be honest about uncertainty.** If you cannot verify a citation, say so.
-- **Prioritize recent work** (last 5-10 years) unless seminal papers are older.
-- **Note working papers vs published papers** — working papers may change.
-- **Do NOT fabricate citations.** If you're unsure about a paper's details, flag it for the user to verify.
+- **对不确定性保持诚实。** 如果无法验证引用，请说明。
+- **优先考虑近期工作**（过去5-10年），除非是更早的开创性论文。
+- **注明工作论文与已发表论文的区别** — 工作论文可能会变化。
+- **不要编造引用。** 如果不确定论文的详细信息，请标记以便用户验证。

@@ -1,57 +1,57 @@
 ---
 name: interview-me
-description: Interactive interview to formalize a research idea into a structured specification with hypotheses and empirical strategy
+description: 通过互动访谈将研究想法形式化为包含假设和实证策略的结构化规范
 disable-model-invocation: true
-argument-hint: "[brief topic or 'start fresh']"
+argument-hint: "[简短主题或'从头开始']"
 allowed-tools: ["Read", "Write"]
 ---
 
-# Research Interview
+# 研究访谈
 
-Conduct a structured interview to help formalize a research idea into a concrete specification.
+进行结构化访谈，帮助将研究想法形式化为具体规范。
 
-**Input:** `$ARGUMENTS` — a brief topic description or "start fresh" for an open-ended exploration.
-
----
-
-## How This Works
-
-This is a **conversational** skill. Instead of producing a report immediately, you conduct an interview by asking questions one at a time, probing deeper based on answers, and building toward a structured research specification.
-
-**Do NOT use AskUserQuestion.** Ask questions directly in your text responses, one or two at a time. Wait for the user to respond before continuing.
+**输入：** `$ARGUMENTS` — 简要的主题描述或 "start fresh" 进行开放式探索。
 
 ---
 
-## Interview Structure
+## 工作原理
 
-### Phase 1: The Big Picture (1-2 questions)
-- "What phenomenon or puzzle are you trying to understand?"
-- "Why does this matter? Who should care about the answer?"
+这是一个**对话式**技能。你不会立即生成报告，而是通过逐个提问的方式进行访谈，根据回答深入探究，并逐步构建结构化的研究规范。
 
-### Phase 2: Theoretical Motivation (1-2 questions)
-- "What's your intuition for why X happens / what drives Y?"
-- "What would standard theory predict? Do you expect something different?"
-
-### Phase 3: Data and Setting (1-2 questions)
-- "What data do you have access to, or what data would you ideally want?"
-- "Is there a specific context, time period, or institutional setting you're focused on?"
-
-### Phase 4: Identification (1-2 questions)
-- "Is there a natural experiment, policy change, or source of variation you can exploit?"
-- "What's the biggest threat to a causal interpretation?"
-
-### Phase 5: Expected Results (1-2 questions)
-- "What would you expect to find? What would surprise you?"
-- "What would the results imply for policy or theory?"
-
-### Phase 6: Contribution (1 question)
-- "How does this differ from what's already been done? What's the gap you're filling?"
+**不要使用 AskUserQuestion。** 在文本回复中直接提问，一次一到两个问题。等待用户回复后再继续。
 
 ---
 
-## After the Interview
+## 访谈结构
 
-Once you have enough information (typically 5-8 exchanges), produce a **Research Specification Document**:
+### 阶段 1：全局视角（1-2 个问题）
+- "你试图理解什么现象或困惑？"
+- "为什么这很重要？谁应该关心答案？"
+
+### 阶段 2：理论动机（1-2 个问题）
+- "你对 X 为什么发生 / 什么驱动 Y 的直觉是什么？"
+- "标准理论会预测什么？你期望不同的结果吗？"
+
+### 阶段 3：数据和背景（1-2 个问题）
+- "你可以访问什么数据，或者理想情况下你想要什么数据？"
+- "你关注的是特定的背景、时间段还是制度环境？"
+
+### 阶段 4：识别策略（1-2 个问题）
+- "是否存在你可以利用的自然实验、政策变化或变异来源？"
+- "对因果解释的最大威胁是什么？"
+
+### 阶段 5：预期结果（1-2 个问题）
+- "你期望发现什么？什么会让你感到惊讶？"
+- "结果对政策或理论意味着什么？"
+
+### 阶段 6：贡献（1 个问题）
+- "这与已完成的工作有何不同？你要填补什么空白？"
+
+---
+
+## 访谈之后
+
+一旦你有足够的信息（通常 5-8 次交流），生成一个**研究规范文档**：
 
 ```markdown
 # Research Specification: [Title]
@@ -98,13 +98,13 @@ Once you have enough information (typically 5-8 exchanges), produce a **Research
 [Issues raised during the interview that need further thought]
 ```
 
-**Save to:** `quality_reports/research_spec_[sanitized_topic].md`
+**保存到：** `quality_reports/research_spec_[sanitized_topic].md`
 
 ---
 
-## Interview Style
+## 访谈风格
 
-- **Be curious, not prescriptive.** Your job is to draw out the researcher's thinking, not impose your own ideas.
-- **Probe weak spots gently.** If the identification strategy sounds fragile, ask "What would a skeptic say about...?" rather than "This won't work because..."
-- **Build on answers.** Each question should follow from the previous response.
-- **Know when to stop.** If the researcher has a clear vision after 4-5 exchanges, move to the specification. Don't over-interview.
+- **保持好奇，而非指导。** 你的工作是引出研究者的思考，而不是强加自己的想法。
+- **温和地探查薄弱环节。** 如果识别策略听起来很脆弱，问"怀疑者会怎么说...？"而不是"这不会起作用，因为..."
+- **基于回答进行构建。** 每个问题都应该跟随前一个回复。
+- **知道何时停止。** 如果研究者在 4-5 次交流后有了清晰的愿景，就转向规范。不要过度访谈。
