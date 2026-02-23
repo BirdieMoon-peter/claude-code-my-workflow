@@ -1,227 +1,576 @@
-# Claude Code 学术工作流（中文版）
+# Claude Code 学术论文写作工作流
 
-> **工作进行中。** 这不是为每个人准备的精美指南。它主要是我如何使用 Claude Code 进行学术工作的总结 — 创建讲座幻灯片、编写 Python 脚本、管理 Beamer 转 Quarto 工作流等。我不断学习新事物，随着学习的进行，我也不断更新这些文件。这只是我与朋友和同事分享我的心得的一种方式。
-
-**在线网站：** [psantanna.com/claude-code-my-workflow](https://psantanna.com/claude-code-my-workflow/)
-
-这是一个为使用 [Claude Code](https://code.claude.com/docs/en/overview) 进行学术工作的研究人员准备的即用型启动工具包，支持 **LaTeX/Beamer + Python + Quarto**。你描述你想要的内容；Claude 规划方法、运行专门的代理、修复问题、验证质量并呈现结果 — 就像一个承包商处理整个工作。该工作流从一门生产环境中的博士课程中提取（6 节课，800+ 幻灯片）。
+一套基于 Claude Code 的完整学术工作流，专为**金融、量化金融、计算机科学、经济学**等领域的论文写作、实验设计和 Beamer 演示文稿制作而设计。
 
 ---
 
-## 快速开始（5 分钟）
+## 目录
+
+1. [5 分钟快速开始](#快速开始)
+2. [工作流全貌](#工作流全貌)
+3. [文件夹结构](#文件夹结构)
+4. [技能完整指南](#技能完整指南)
+5. [代理系统](#代理系统)
+6. [规则系统](#规则系统)
+7. [核心工作模式](#核心工作模式)
+8. [为你的领域定制](#为你的领域定制)
+9. [前置条件](#前置条件)
+
+---
+
+## 快速开始
 
 ### 1. Fork 和克隆
 
 ```bash
-# 在 GitHub 上 Fork 此仓库（点击仓库页面上的 "Fork"），然后：
 git clone https://github.com/YOUR_USERNAME/claude-code-my-workflow.git my-project
 cd my-project
 ```
 
-将 `YOUR_USERNAME` 替换为你的 GitHub 用户名。
+### 2. 填写项目信息
 
-### 2. 启动 Claude Code 并粘贴此提示
+编辑 `CLAUDE.md`，替换所有 `[占位符]`：
+
+```
+项目: 你的论文/项目名称
+机构: 你的大学/研究机构
+```
+
+### 3. 启动 Claude Code，粘贴初始化提示
 
 ```bash
 claude
 ```
 
-**使用 VS Code？** 打开 Claude Code 面板即可。所有操作都一样 — 查看 [完整指南](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-setup) 获取详细信息。
+粘贴以下内容：
 
-然后粘贴以下内容，填入你的项目细节：
-
-> 我开始在这个仓库中处理 **[项目名称]**。**[用 2-3 句话描述你的项目 — 你要构建什么、为谁构建、使用什么工具。]**
+> 我开始在这个仓库中处理 **[项目名称]**。这是一个关于 **[主题，例如：高频交易中的做市策略 / 深度学习在信用评分中的应用 / 双重差分法在政策评估中的应用]** 的研究项目。
 >
-> 我希望我们的协作是结构化的、精确的和严谨的。创建视觉内容时，一切必须是精美的、可发表水平。
->
-> 我已经设置了 Claude Code 学术工作流（从 `pedrohcgs/claude-code-my-workflow` fork）。配置文件已在此仓库中。请阅读它们、理解工作流，然后 **更新所有配置文件以适应我的项目** — 填入 `CLAUDE.md` 中的占位符、根据需要调整规则，并提出特定于我用例的任何自定义建议。
+> 我已经设置了 Claude Code 学术工作流。请阅读 `CLAUDE.md` 和 `README.md`，理解工作流，然后**更新所有配置文件以适应我的项目** — 填入 `CLAUDE.md` 中的占位符、根据我的领域调整规则，提出特定于我用例的自定义建议。
 >
 > 之后，对所有非平凡任务使用先规划工作流。一旦我批准计划，切换到承包商模式 — 自主协调所有内容，仅在有歧义或需要做出决定时回到我这里。
->
-> 进入规划模式并开始为该项目调整工作流配置。
 
-**这样做的作用：** Claude 读取所有配置文件、填入你的项目名称、机构和偏好，然后进入承包商模式 — 自主地规划、实现、审查和验证。你批准计划，Claude 处理其余部分。
-
-**更喜欢手动配置？** 查看 [完整指南](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-setup) 获取分步手动设置说明。
+**这样做的作用：** Claude 读取配置文件、填入项目信息，然后进入承包商模式。你批准计划，Claude 处理其余部分。
 
 ---
 
-## 工作原理
+## 工作流全貌
 
 ### 承包商模式
 
-你描述一个任务。Claude 规划方法、实现它、运行专门的审查代理、修复问题、重新验证并针对质量门控评分 — 全部自主完成。当工作满足质量标准时，你会看到摘要。说"就这样做"，它也会自动提交。
+你描述一个任务。Claude 规划方法、实现它、运行专门的审查代理、修复问题、重新验证并对质量门控评分 — **全部自主完成**。
 
-### 专门化代理
-
-而不是一个通用审查者，10 个聚焦代理各检查一个维度：
-
-- **proofreader** — 语法/拼写错误
-- **slide-auditor** — 视觉布局
-- **pedagogy-reviewer** — 教学质量
-- **python-reviewer** — Python 代码质量
-- **domain-reviewer** — 领域特定正确性（模板 — 为你的领域自定义）
-
-每个代理在其狭隘任务上比通才更出色。`/slide-excellence` 技能以并行方式运行它们所有。
-
-### 对抗性 QA
-
-两个代理相互对立工作：**批评者** 阅读 Beamer 和 Quarto 并产生严厉的发现。**修复者** 准确实现批评者发现的内容。他们循环直到批评者说"已批准"（或最多 5 轮）。这捕捉单次审查遗漏的错误。
+```
+你的任务描述
+    ↓
+Claude 进入规划模式
+    ↓
+展示计划 → 你批准
+    ↓
+执行：实现 → 验证 → 审查 → 修复 → 评分
+    ↓
+得分 >= 80？是 → 呈现摘要
+           否 → 继续修复（最多 5 轮）
+```
 
 ### 质量门控
 
-每个文件都有评分（0-100）。低于阈值的评分会阻止操作：
-- **80** — 提交阈值
-- **90** — PR 阈值
-- **95** — 卓越（志向性目标）
+| 分数 | 操作 |
+|------|------|
+| 95+ | 卓越 — 理想目标 |
+| 90+ | 准备提交/发布 |
+| 80+ | 可以保存 |
+| < 80 | 阻止提交，必须修复 |
 
 ---
 
-## 指南
+## 文件夹结构
 
-有关全面演练，请阅读 **[完整指南](https://psantanna.com/claude-code-my-workflow/workflow-guide.html)**（或查看 [源代码](guide/workflow-guide.qmd)）。
-
-它涵盖：
-1. **工作流存在的原因** — 问题和愿景
-2. **入门** — Fork、粘贴一个提示，Claude 处理其余部分
-3. **系统实际应用** — 专门代理、对抗性 QA、质量评分
-4. **构建块** — CLAUDE.md、规则、技能、代理、钩子、记忆
-5. **工作流模式** — 讲座创建、翻译、复制、多代理审查、研究探索
-6. **为你的领域定制** — 创建你自己的审查者和知识库
+```
+my-project/
+├── CLAUDE.md                    # 项目配置（每次会话加载）
+├── .claude/                     # 规则、技能、代理、钩子
+│   ├── agents/                  # 专门化审查代理
+│   ├── skills/                  # 可调用工作流（/command 形式）
+│   ├── rules/                   # 自动加载的行为规则
+│   ├── hooks/                   # 自动触发的钩子
+│   └── WORKFLOW_QUICK_REF.md   # 一页速查表
+├── Bibliography_base.bib        # 中央文献库（所有 .bib 引用）
+├── Figures/                     # 图表（Python 生成的 PDF/PNG）
+├── Preambles/                   # LaTeX 共用头文件
+│   └── header.tex               # 包含所有 \usepackage 声明
+├── Papers/                      # LaTeX 学术论文
+│   └── MyPaper.tex              # 你的论文
+├── Slides/                      # Beamer 演示文稿
+│   └── Talk_Topic.tex           # 你的幻灯片
+├── scripts/                     # Python 分析脚本
+│   ├── python/                  # 分析、图表生成
+│   └── quality_score.py         # 质量评分工具
+├── quality_reports/             # 计划和审查报告
+│   ├── plans/                   # 任务规划（用户批准）
+│   ├── session_logs/            # 会话记录
+│   └── merges/                  # 合并时质量报告
+├── explorations/                # 实验性研究沙箱
+│   └── ARCHIVE/                 # 存档的探索
+├── templates/                   # 日志/报告模板
+└── master_supporting_docs/      # 参考资料
+    ├── supporting_papers/       # 参考论文 PDF
+    └── supporting_slides/       # 参考幻灯片
+```
 
 ---
 
-## 包含内容
+## 技能完整指南
 
-<details>
-<summary><strong>10 个代理、19 个技能、17 个规则、4 个钩子</strong>（点击展开）</summary>
+技能通过 `/command [arguments]` 调用。每个技能都是一个完整的多阶段工作流。
 
-### 代理（`.claude/agents/`）
+### 论文写作
 
-| 代理 | 功能 |
-|-------|-------------|
-| `proofreader` | 语法、拼写错误、溢出、一致性审查 |
-| `slide-auditor` | 视觉布局审计（溢出、字体一致性、间距） |
-| `pedagogy-reviewer` | 13 模式教学评审（叙述弧、符号密度、步调） |
-| `python-reviewer` | Python 代码质量、可重现性和领域正确性 |
-| `tikz-reviewer` | 严厉的 TikZ 图表视觉批评 |
-| `beamer-translator` | Beamer 转 Quarto 翻译专家 |
-| `quarto-critic` | 对抗性 QA，将 Quarto 与 Beamer 基准进行比较 |
-| `quarto-fixer` | 实现批评者代理的修复 |
-| `verifier` | 端到端任务完成验证 |
-| `domain-reviewer` | **模板** 用于你的领域特定物质审查者 |
+#### `/review-paper [file]`
+全面的手稿审查，生成类似顶级期刊审稿人的报告。
 
-### 技能（`.claude/skills/`）
+```
+/review-paper Papers/MyPaper.tex
+/review-paper master_supporting_docs/supporting_papers/some_paper.pdf
+```
 
-| 技能 | 功能 |
-|-------|-------------|
-| `/compile-latex` | 3 遍 XeLaTeX 编译及 bibtex |
-| `/deploy` | 渲染 Quarto + 同步到 GitHub Pages |
-| `/extract-tikz` | TikZ 图表转 PDF 再转 SVG 管道 |
-| `/proofread` | 启动校对员处理文件 |
-| `/visual-audit` | 启动幻灯片审计员处理文件 |
-| `/pedagogy-review` | 启动教学审查者处理文件 |
-| `/review-python` | 启动 Python 代码审查者 |
-| `/qa-quarto` | 对抗性批评者-修复者循环（最多 5 轮） |
-| `/slide-excellence` | 组合多代理审查 |
-| `/translate-to-quarto` | 完整的 11 阶段 Beamer 转 Quarto 翻译 |
-| `/validate-bib` | 对文献目录验证交叉引用 |
-| `/devils-advocate` | 在提交前质疑设计决策 |
-| `/create-lecture` | 完整讲座创建工作流 |
-| `/commit` | 暂存、提交、创建 PR 并合并到 main |
-| `/lit-review` | 文献搜索、综合和差距识别 |
-| `/research-ideation` | 生成研究问题和实证策略 |
-| `/interview-me` | 交互式采访以正式化研究思想 |
-| `/review-paper` | 稿件审查：结构、计量经济学、审稿人异议 |
-| `/data-analysis` | 端到端 Python 分析及出版就绪输出 |
+**输出：** `quality_reports/paper_review_[name].md`，包含：
+- 总体建议（Strong Accept / R&R / Reject）
+- 论证结构评估
+- **识别策略**分析（因果主张的可信度）
+- 计量经济学规范检查
+- 文献定位分析
+- 3-5 个"审稿人异议"（致命问题）
 
-### 研究工作流
+**适用场景：** 提交前自审、审查合作者论文、学习论文写作范式。
 
-| 特性 | 功能 |
-|---------|-------------|
-| 探索文件夹 | 带有研究生/存档生命周期的结构化 `explorations/` 沙箱 |
-| 快速轨道工作流 | 60/100 质量阈值用于快速原型设计 |
-| 简化编排器 | 实现 → 验证 → 评分 → 完成（无多轮审查） |
-| 增强会话日志 | 结构化的更改、决策、验证表 |
-| 仅合并报告 | 仅在合并时生成质量报告 |
-| 数学行长例外 | 长行对于有记录的公式可接受 |
-| 工作流快速参考 | `.claude/WORKFLOW_QUICK_REF.md` 中的单页速查表 |
+---
 
-### 规则（`.claude/rules/`）
+#### `/lit-review [topic]`
+结构化文献搜索和综合，识别研究空白。
 
-规则使用路径作用域加载：**始终启用** 规则每次会话加载（约 100 行总计）；**路径作用域** 规则仅在 Claude 处理匹配文件时加载。Claude 可靠地遵循约 150 条指令，所以越少越好。
+```
+/lit-review "高频交易的价格影响"
+/lit-review "transformer 在时间序列预测中的应用"
+/lit-review "最低工资政策的就业效应 DiD 研究"
+```
 
-**始终启用**（无 `paths:` frontmatter — 每次会话加载）：
+**输出：** `quality_reports/lit_review_[topic].md`，包含：
+- 关键论文摘要（贡献、方法、发现）
+- 主题组织（理论/实证/方法论）
+- **研究空白与机会**
+- BibTeX 引用条目
 
-| 规则 | 强制执行内容 |
-|------|-----------------|
-| `plan-first-workflow` | 非平凡任务的规划模式 + 上下文保留 |
+**提示：** 将感兴趣的论文放入 `master_supporting_docs/supporting_papers/`，让 lit-review 可以搜索它们。
+
+---
+
+#### `/research-ideation [topic]`
+从主题或数据集生成结构化的研究问题和实证策略。
+
+```
+/research-ideation "中国股市的散户行为"
+/research-ideation "使用 CRSP 日度数据：动量策略的风险因子分解"
+/research-ideation "大语言模型在财务报告分析中的信息提取"
+```
+
+**输出：** `quality_reports/research_ideation_[topic].md`，包含：
+- 3-5 个研究问题（描述性 → 因果性）
+- 每个问题的识别策略、数据需求、关键假设
+- 按可行性和贡献度的优先级排序
+
+---
+
+#### `/interview-me [topic]`
+交互式采访，帮助正式化你的研究思路。
+
+```
+/interview-me "我想研究央行政策对债券市场的影响"
+```
+
+Claude 会追问问题，帮你厘清：研究问题、识别策略、数据来源、贡献点。
+
+---
+
+#### `/validate-bib`
+验证 `Bibliography_base.bib` 中的所有引用与 `.tex` 文件的交叉引用完整性。
+
+```
+/validate-bib
+```
+
+检查：缺失条目、键名不一致、格式问题、重复引用。
+
+---
+
+### 数据分析
+
+#### `/data-analysis [dataset]`
+端到端 Python 数据分析，从数据加载到发布级表格和图表。
+
+```
+/data-analysis data/stock_returns.csv
+/data-analysis "使用 Compustat 数据分析企业杠杆与投资的关系，控制行业和年份固定效应"
+/data-analysis "蒙特卡洛模拟：Black-Scholes 期权定价 vs 二叉树模型"
+```
+
+**输出（保存到 `output/`）：**
+- Python 脚本（`scripts/python/analysis_name.py`）
+- 图表（`.pdf` 和 `.png`，300 dpi）
+- LaTeX 表格（`.tex`，可直接 `\input{}` 引用）
+- 摘要统计
+
+**工作流：** 设置 → EDA → 主要分析 → 可视化 → 发布级输出 → python-reviewer 代码审查
+
+**支持方法：**
+- 计量经济学：OLS、面板数据（FE/RE）、IV、DID、RDD、合成控制
+- 金融：资产定价因子、时间序列、事件研究、期权定价
+- ML：sklearn、pytorch、statsmodels、linearmodels
+
+---
+
+#### `/review-python [file]`
+Python 代码质量审查，检查可重现性、风格、领域正确性。
+
+```
+/review-python scripts/python/analysis.py
+```
+
+---
+
+### Beamer 幻灯片
+
+#### `/create-lecture [topic]`
+从头创建一份完整的 Beamer 演示文稿，适用于学术讲座、论文展示、研讨会。
+
+```
+/create-lecture "期权定价：Black-Scholes 模型及其局限"
+/create-lecture "双重差分法：假设、实现与稳健性检验"
+/create-lecture "Transformer 架构详解"
+```
+
+**协作流程：**
+1. 分析提供的材料（论文、数据结果、已有幻灯片）
+2. 提议大纲（你批准）
+3. **分批创建幻灯片**（5-10 张一批，你给反馈）
+4. 生成配套 TikZ 图表和 Python 图形
+5. 完整编译并审查
+
+---
+
+#### `/compile-latex [file]`
+3 遍 XeLaTeX + bibtex 编译，检查错误并报告。
+
+```
+/compile-latex Slides/Talk_Topic.tex
+/compile-latex Papers/MyPaper.tex
+```
+
+---
+
+#### `/extract-tikz [file]`
+从 `.tex` 文件提取 TikZ 图表，编译为独立 PDF，再转换为 SVG。
+
+```
+/extract-tikz Slides/Talk_Topic.tex
+```
+
+---
+
+#### `/proofread [file]`
+语法、拼写、符号一致性、学术质量全面审查。
+
+```
+/proofread Papers/MyPaper.tex
+/proofread Slides/Talk_Topic.tex
+```
+
+**输出：** `quality_reports/[file]_report.md`
+
+---
+
+#### `/visual-audit [file]`
+Beamer 幻灯片视觉布局审计：溢出、字体一致性、盒子疲劳、间距。
+
+```
+/visual-audit Slides/Talk_Topic.tex
+```
+
+---
+
+#### `/pedagogy-review [file]`
+叙事弧、教学模式、符号密度、节奏审查（适用于教学讲义）。
+
+```
+/pedagogy-review Slides/Lecture_Topic.tex
+```
+
+---
+
+#### `/slide-excellence [file]`
+综合多代理审查：同时运行视觉审核 + 教学审查 + 校对 + TikZ 审查 + 实质审查。
+
+```
+/slide-excellence Slides/Talk_Topic.tex
+```
+
+**适用场景：** 重要演讲前的全面检查。
+
+---
+
+#### `/devils-advocate [file]`
+挑战你的设计决策，提出批判性问题。
+
+```
+/devils-advocate Slides/Talk_Topic.tex
+/devils-advocate Papers/MyPaper.tex
+```
+
+---
+
+### 版本控制
+
+#### `/commit [message]`
+暂存所有更改、提交、创建 PR 并合并到 main。
+
+```
+/commit "添加期权定价章节"
+/commit "修复回归表中的标准误"
+```
+
+---
+
+## 代理系统
+
+代理是专门化的子 AI，在狭窄任务上比通才更出色。技能会在需要时自动调用它们。
+
+| 代理 | 功能 | 调用方式 |
+|------|------|----------|
+| `proofreader` | 语法、拼写、一致性 | `/proofread` |
+| `slide-auditor` | 视觉布局（溢出、字体、间距） | `/visual-audit` |
+| `pedagogy-reviewer` | 叙事弧、13种教学模式 | `/pedagogy-review` |
+| `python-reviewer` | Python 代码质量、可重现性 | `/review-python` |
+| `tikz-reviewer` | TikZ 图表视觉批评 | `/slide-excellence` |
+| `domain-reviewer` | 领域实质正确性（金融/量化/CS/经济） | `/slide-excellence` |
+| `verifier` | 端到端任务完成验证 | 自动（任务结束时） |
+
+### `domain-reviewer` 覆盖的检查
+
+**金融/量化：**
+- 无套利假设是否明确
+- Ito 引理应用是否正确
+- Greeks 推导（delta, gamma, vega, theta）
+- 风险度量（VaR, CVaR）计算
+- 前视偏差防范
+
+**计量经济学/实证：**
+- 识别假设（平行趋势、排除限制）
+- 聚类标准误级别是否正确
+- 多重检验校正
+- 稳健性检验完整性
+
+**CS/算法：**
+- 时间/空间复杂度分析
+- 算法正确性证明
+- 收敛条件
+
+---
+
+## 规则系统
+
+规则在 Claude 处理匹配文件时自动加载，无需手动调用。
+
+### 始终加载的规则
+
+| 规则 | 作用 |
+|------|------|
+| `plan-first-workflow` | 非平凡任务必须先规划，计划保存到 `quality_reports/plans/` |
 | `orchestrator-protocol` | 承包商模式：实现 → 验证 → 审查 → 修复 → 评分 |
-| `session-logging` | 三个日志触发点：后规划、增量、会话结束 |
+| `session-logging` | 计划后、增量进度、会话结束时记录日志 |
 
-**路径作用域**（仅在处理匹配文件时加载）：
+### 路径触发的规则
 
-| 规则 | 触发于 | 强制执行内容 |
-|------|------------|-----------------|
-| `verification-protocol` | `.tex`, `.qmd`, `docs/` | 任务完成清单 |
-| `single-source-of-truth` | `Figures/`, `.tex`, `.qmd` | 无内容重复；Beamer 是权威 |
-| `quality-gates` | `.tex`, `.qmd`, `*.py` | 80/90/95 评分 + 容差阈值 |
-| `python-code-conventions` | `*.py` | Python 编码标准 + 数学行长例外 |
+| 规则 | 触发条件 | 作用 |
+|------|----------|------|
+| `verification-protocol` | `.tex` 文件 | 编译验证清单 |
+| `single-source-of-truth` | `.tex`, `Figures/` | LaTeX 是权威源，不独立编辑派生文件 |
+| `quality-gates` | `.tex`, `.py` | 80/90/95 分数门槛 |
+| `python-code-conventions` | `.py` | Python 编码标准、类型提示、文档字符串 |
 | `tikz-visual-quality` | `.tex` | TikZ 图表视觉标准 |
-| `beamer-quarto-sync` | `.tex`, `.qmd` | 自动同步 Beamer 编辑到 Quarto |
-| `pdf-processing` | `master_supporting_docs/` | 安全的大 PDF 处理 |
-| `proofreading-protocol` | `.tex`, `.qmd`, `quality_reports/` | 提议-首先，然后在批准后应用 |
-| `no-pause-beamer` | `.tex` | Beamer 中无覆盖命令 |
-| `replication-protocol` | `*.py` | 复制原始结果后再扩展 |
-| `knowledge-base-template` | `.tex`, `.qmd`, `*.py` | 符号/应用注册表模板 |
-| `orchestrator-research` | `*.py`, `explorations/` | 简化研究编排器（无多轮审查） |
-| `exploration-folder-protocol` | `explorations/` | 实验工作的结构化沙箱 |
-| `exploration-fast-track` | `explorations/` | 轻量级探索工作流（60/100 阈值） |
+| `no-pause-beamer` | `.tex` | Beamer 中禁用 `\pause` 覆盖命令 |
+| `replication-protocol` | `.py` | 先复制原始结果，再扩展 |
+| `pdf-processing` | `master_supporting_docs/` | 安全处理大 PDF |
+| `exploration-folder-protocol` | `explorations/` | 实验性工作的结构化沙箱 |
+| `exploration-fast-track` | `explorations/` | 快速原型（60/100 质量阈值） |
 
-**模板**（`templates/`） — 会话日志、质量报告和探索 README 的参考格式。不会自动加载。
+---
 
-</details>
+## 核心工作模式
+
+### 模式 1：从零写一篇论文
+
+```
+# 第一步：文献调研
+/lit-review "你的研究主题"
+
+# 第二步：研究设计
+/research-ideation "基于文献调研的具体问题"
+# 或
+/interview-me "我想研究..."
+
+# 第三步：数据分析
+/data-analysis "数据集路径或分析描述"
+
+# 第四步：写作（Claude 直接辅助）
+> 帮我起草论文引言，基于以下研究问题和文献：...
+
+# 第五步：迭代完善
+/proofread Papers/MyPaper.tex
+
+# 第六步：最终审查
+/review-paper Papers/MyPaper.tex
+```
+
+---
+
+### 模式 2：制作论文展示幻灯片
+
+```
+# 第一步：创建幻灯片（会问你批准大纲）
+/create-lecture "论文标题或主题"
+
+# 第二步：编译验证
+/compile-latex Slides/MyTalk.tex
+
+# 第三步：全面审查
+/slide-excellence Slides/MyTalk.tex
+
+# 第四步：最终检查
+/devils-advocate Slides/MyTalk.tex
+```
+
+---
+
+### 模式 3：实验性探索（快速通道）
+
+在 `explorations/` 文件夹中工作时，工作流更轻量：
+- **质量阈值降低：** 60/100（vs 正式工作的 80/100）
+- **无需完整规划：** 只需 2 分钟研究价值检查
+- **快速迭代：** 先运行，后分析
+
+```
+# 在 explorations/ 中探索想法
+> 在 explorations/ 中测试这个想法：[描述实验]
+
+# 确认值得推进后，移到正式目录
+> 将 explorations/my_idea/ 的结果整合到 Papers/MyPaper.tex
+```
+
+---
+
+### 模式 4：复制已有论文的结果
+
+```
+# 第一步：将论文放入 master_supporting_docs/supporting_papers/
+# 第二步：开始复制
+> 复制 [论文名] 的表格 2 第 3 列结果。
+> 论文在 master_supporting_docs/supporting_papers/paper.pdf
+
+# Claude 会：
+# 1. 读取 replication-protocol 规则
+# 2. 建立黄金标准目标（与论文数字完全匹配）
+# 3. 实现分析代码
+# 4. 验证是否与目标匹配（在容差范围内）
+# 5. 再扩展或修改
+```
+
+---
+
+### 模式 5：审查合作者论文
+
+```
+/review-paper path/to/collaborator_paper.pdf
+```
+
+获得类似期刊审稿人的详细报告：论证结构、识别策略、计量经济学规范、文献定位、审稿人异议。
+
+---
+
+## 为你的领域定制
+
+### 第 1 步：填写知识库（`.claude/rules/knowledge-base-template.md`）
+
+添加你的领域符号约定、核心公式、常用数据集：
+
+```markdown
+## 符号约定
+- $r_t$：对数收益率（不是简单收益率）
+- $P_t$：资产价格
+- $\Sigma$：协方差矩阵（不用 $V$ 或 $S$）
+
+## 核心公式
+- BS 公式：$C = S_0 N(d_1) - K e^{-rT} N(d_2)$
+
+## 数据源
+- CRSP：股票日度收益，1926-至今
+- Compustat：上市公司财务报表
+```
+
+### 第 2 步：自定义领域审查者（`.claude/agents/domain-reviewer.md`）
+
+在镜头 4 中添加你的领域已知陷阱：
+
+```markdown
+## 镜头 4：代码理论对齐
+<!-- 自定义：你的领域已知陷阱 -->
+- [ ] 高频数据：确认使用 bid-ask midpoint 而非 last price
+- [ ] 事件研究：确认正确的估计窗口和事件窗口
+- [ ] 面板数据：Driscoll-Kraay SE 用于时间序列相关
+```
+
+### 第 3 步：自定义 Beamer 环境（`CLAUDE.md`）
+
+填写你项目中使用的自定义 LaTeX 环境：
+
+```markdown
+## Beamer 自定义环境
+| `keybox` | 金色背景框 | 关键结论 |
+| `definitionbox[Title]` | 蓝色标题框 | 正式定义 |
+| `assumptionbox` | 灰色框 | 假设陈述 |
+```
+
+### 第 4 步：设置调色板（`scripts/python/` 中的代码）
+
+在 `.claude/rules/python-code-conventions.md` 中设置项目颜色：
+
+```python
+PRIMARY_COLOR = "#012169"   # 机构蓝
+ACCENT_COLOR = "#f2a900"    # 强调金
+```
+
+### 第 5 步：填写容差阈值（`.claude/rules/quality-gates.md`）
+
+```markdown
+| 点估计 | 1e-6 | 数值精度 |
+| 标准误差 | 1e-4 | MC 变异性 |
+```
 
 ---
 
 ## 前置条件
 
-| 工具 | 需要用于 | 安装 |
-|------|-------------|---------|
-| [Claude Code](https://code.claude.com/docs/en/overview) | 所有 | `npm install -g @anthropic-ai/claude-code` |
+| 工具 | 用途 | 安装 |
+|------|------|------|
+| [Claude Code](https://docs.anthropic.com/claude-code) | **必须** — 整套工作流的基础 | `npm install -g @anthropic-ai/claude-code` |
 | XeLaTeX | LaTeX 编译 | [TeX Live](https://tug.org/texlive/) 或 [MacTeX](https://tug.org/mactex/) |
-| [Quarto](https://quarto.org) | 网络幻灯片 | [quarto.org/docs/get-started](https://quarto.org/docs/get-started/) |
-| Python | 图形和分析 | [python.org](https://www.python.org/) |
-| NanoBanana | 科研绘图（可选） | `pip install nano-banana` |
-| pdf2svg | TikZ 转 SVG | `brew install pdf2svg` (macOS) |
-| [gh CLI](https://cli.github.com/) | PR 工作流 | `brew install gh` (macOS) |
+| Python 3.8+ | 数据分析和图表 | [python.org](https://www.python.org/) |
+| pdf2svg | TikZ → SVG 转换 | `brew install pdf2svg` (macOS) / `apt install pdf2svg` (Linux) |
+| [gh CLI](https://cli.github.com/) | PR 工作流（可选） | `brew install gh` (macOS) |
 
-并非所有工具都是必需的 — 仅安装你的项目使用的工具。Claude Code 是唯一的硬性要求。
-
----
-
-## 为你的领域调整
-
-1. **填写知识库**（`.claude/rules/knowledge-base-template.md`）— 添加你的符号、应用和设计原则
-2. **自定义领域审查者**（`.claude/agents/domain-reviewer.md`）— 使用特定于你的领域的审查视角
-3. **更新调色板** — 在你的 Quarto 主题 SCSS 文件中改变顶部的颜色变量
-4. **添加领域特定的 Python 陷阱** — 到 `.claude/rules/python-code-conventions.md`
-5. **填写讲座映射** — 在 `.claude/rules/beamer-quarto-sync.md` 中
-6. **自定义工作流快速参考** — 使用 `.claude/WORKFLOW_QUICK_REF.md` 中的你的不可协商原则和偏好
-7. **设置探索文件夹** — 用于实验工作的 (`explorations/`)
-
----
-
-## 其他资源
-
-- [Claude Code 文档](https://code.claude.com/docs/en/overview)
-- [编写优秀的 CLAUDE.md](https://code.claude.com/docs/en/memory) — 关于项目记忆的官方指南
-
----
-
-## 来源
-
-该基础设施从埃默里大学的 **Econ 730：因果面板数据** 课程中提取，由 Pedro Sant'Anna 使用 Claude Code 在 6+ 个会话中开发。该课程产生了 6 个完整的博士讲座套装，包含 800+ 幻灯片、包含 plotly 图表的交互式 Quarto 版本以及完整的 Python 复制包 — 所有这些都通过此多代理工作流进行管理。
+**Python 依赖：**
+```bash
+pip install numpy pandas matplotlib seaborn scipy scikit-learn statsmodels linearmodels stargazer
+```
 
 ---
 

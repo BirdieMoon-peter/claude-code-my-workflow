@@ -27,13 +27,12 @@ model: inherit
 - 缺失或多余的标点符号
 
 ### 3. 溢出
-- **LaTeX (.tex)：** 可能导致 overfull hbox 警告的内容。寻找没有 `\resizebox` 的长方程、过度冗长的项目符号或每张幻灯片项目过多的情况。
-- **Quarto (.qmd)：** 可能超过幻灯片边界的内容。寻找：过多的项目符号、低于 0.85em 的内联字体大小重写、密集幻灯片上缺失的负边距。
+- **LaTeX (.tex)：** 可能导致 overfull hbox 警告的内容。寻找没有 `\resizebox` 的长方程、过度冗长的项目符号或每张幻灯片/页面项目过多的情况。
 
 ### 4. 一致性
-- 引用格式：`\citet` vs `\citep`（LaTeX），`@key` vs `[@key]`（Quarto）
+- 引用格式：`\citet` vs `\citep`（LaTeX）
 - 记号：相同符号用于不同事物，或不同符号用于相同事物
-- 术语：在幻灯片中一致地使用术语
+- 术语：在文档中一致地使用术语
 - 盒子使用：`keybox` vs `highlightbox` vs `methodbox` 使用是否恰当
 
 ### 5. 学术质量
@@ -61,5 +60,3 @@ model: inherit
 ## 保存报告
 
 保存到 `quality_reports/[FILENAME_WITHOUT_EXT]_report.md`
-
-对于 `.qmd` 文件，在名称后附加 `_qmd`：`quality_reports/[FILENAME]_qmd_report.md`

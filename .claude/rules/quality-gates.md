@@ -1,7 +1,7 @@
 ---
 paths:
+  - "Papers/**/*.tex"
   - "Slides/**/*.tex"
-  - "Quarto/**/*.qmd"
   - "scripts/**/*.py"
 ---
 
@@ -10,24 +10,34 @@ paths:
 ## 阈值
 
 - **80/100 = Commit** -- 足够好，可以保存
-- **90/100 = PR** -- 准备好部署
+- **90/100 = PR** -- 准备好发布
 - **95/100 = Excellence** -- 理想状态
 
-## Quarto 幻灯片 (.qmd)
+## LaTeX 论文 (Papers/*.tex)
 
 | 严重程度 | 问题 | 扣分 |
 |----------|-------|-----------|
-| Critical | Compilation 失败 | -100 |
-| Critical | 方程溢出 | -20 |
-| Critical | 破损的引用 | -15 |
+| Critical | XeLaTeX compilation 失败 | -100 |
+| Critical | 未定义的引用 | -15 |
 | Critical | 方程中的拼写错误 | -10 |
-| Major | 文本溢出 | -5 |
-| Major | TikZ 标签重叠 | -5 |
-| Major | 记号不一致 | -3 |
-| Minor | 字体大小减小 | -1 每张幻灯片 |
+| Critical | 识别假设缺失 | -15 |
+| Major | Overfull hbox > 10pt | -5 |
+| Major | 记号不一致 | -5 |
+| Major | 缺失图表标题/注释 | -5 |
 | Minor | 长行 (>100 字符) | -1 (数学公式除外) |
 
-## Python 脚本 (.py)
+## Beamer 幻灯片 (Slides/*.tex)
+
+| 严重程度 | 问题 | 扣分 |
+|----------|-------|-----------|
+| Critical | XeLaTeX compilation 失败 | -100 |
+| Critical | 未定义的引用 | -15 |
+| Critical | Overfull hbox > 10pt | -10 |
+| Major | 幻灯片内容过满 | -5 |
+| Major | 记号不一致 | -3 |
+| Minor | 字体大小减小 | -1 每张幻灯片 |
+
+## Python 脚本 (scripts/*.py)
 
 | 严重程度 | 问题 | 扣分 |
 |----------|-------|-----------|
@@ -36,14 +46,6 @@ paths:
 | Critical | 硬编码的绝对路径 | -20 |
 | Major | 缺少随机种子设置 | -10 |
 | Major | 缺少图形生成 | -5 |
-
-## Beamer 幻灯片 (.tex)
-
-| 严重程度 | 问题 | 扣分 |
-|----------|-------|-----------|
-| Critical | XeLaTeX compilation 失败 | -100 |
-| Critical | 未定义的引用 | -15 |
-| Critical | Overfull hbox > 10pt | -10 |
 
 ## 执行
 

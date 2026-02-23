@@ -18,8 +18,8 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "Edit", "Bash", "Task"]
 
 - **遵循 Python 代码规范** 在 `.claude/rules/python-code-conventions.md`
 - **保存所有脚本** 到 `scripts/python/`，使用描述性名称
-- **保存所有输出** （图表、表格、pickle）到 `output/`
-- **使用 pickle** 保存每个计算对象 — Quarto 幻灯片可能需要它们
+- **保存所有输出** （图表、表格）到 `output/`
+- **保存为 PDF 和 PNG** 图表以供 LaTeX 论文和 Beamer 幻灯片使用
 - **使用项目主题** 为所有图表（检查 `.claude/rules/` 中的自定义主题）
 - **运行 python-reviewer** 在生成的脚本上，展示结果前
 
@@ -97,9 +97,10 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "Edit", "Bash", "Task"]
 
 ### 阶段 6: 保存和审查
 
-1. 使用 `pickle` 保存所有关键对象（回归结果、摘要表、处理后的数据）:
+1. 保存所有关键输出（图表、表格）到 `output/` 子目录，以及可选地使用 pickle 缓存重计算结果:
    ```python
    import pickle
+   # 可选：缓存耗时计算结果（方便后续分析加载）
    with open('output/results.pkl', 'wb') as f:
        pickle.dump(results, f)
    ```
@@ -127,7 +128,7 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "Edit", "Bash", "Task"]
 # 作者: [从项目上下文]
 # 目的: [此脚本的功能]
 # 输入: [数据文件]
-# 输出: [图表、表格、pickle 文件]
+# 输出: [图表、表格、可选 pickle 缓存]
 # ============================================================
 
 # 0. 设置 ----
@@ -158,7 +159,7 @@ os.makedirs("output/analysis", exist_ok=True)
 # [发布级输出]
 
 # 5. 导出 ----
-# [pickle 保存所有对象，保存所有图表]
+# [保存图表为 PDF/PNG，导出表格为 .tex 和 .csv]
 ```
 
 ---

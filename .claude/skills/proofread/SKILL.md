@@ -14,13 +14,13 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
 
 1. **识别需要审查的文件:**
    - 如果 `$ARGUMENTS` 是特定文件名：仅审查该文件
-   - 如果 `$ARGUMENTS` 是 "all"：审查 `Slides/` 和 `Quarto/` 中的所有讲座文件
+   - 如果 `$ARGUMENTS` 是 "all"：审查 `Slides/` 和 `Papers/` 中的所有讲座文件
 
 2. **对每个文件启动校对员智能体**，检查以下内容:
 
    **语法:** 主谓一致、冠词（a/an/the）、介词、时态一致性
    **拼写:** 拼写错误、查找替换遗留问题、重复词语
-   **溢出:** Overfull hbox（LaTeX）、超出幻灯片边界的内容（Quarto）
+   **溢出:** Overfull hbox（LaTeX）、内容超出页面/幻灯片边界
    **一致性:** 引用格式、符号表示、术语
    **学术质量:** 非正式语言、缺失词语、笨拙的表达
 
@@ -30,9 +30,7 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
    - 建议修复（应该是什么）
    - 类别和严重程度
 
-4. **保存每个报告** 到 `quality_reports/`:
-   - 对于 `.tex` 文件：`quality_reports/FILENAME_report.md`
-   - 对于 `.qmd` 文件：`quality_reports/FILENAME_qmd_report.md`
+4. **保存每个报告** 到 `quality_reports/FILENAME_report.md`
 
 5. **重要提示：不要编辑任何源文件。**
    仅生成报告。修复在用户审查后单独应用。
